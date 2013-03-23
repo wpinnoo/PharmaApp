@@ -1,17 +1,18 @@
 package eu.pinnoo.appsforghent2013.view;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
-import android.widget.ListView;
 import eu.pinnoo.appsforghent2013.R;
 import eu.pinnoo.appsforghent2013.models.DataModel;
 import eu.pinnoo.appsforghent2013.util.Apothecary;
+import eu.pinnoo.appsforghent2013.util.ApothecaryAlfComparator;
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class SearchActivity extends Activity {
+public class SearchActivity extends ListActivity {
 
     private EditText filterText = null;
    // private ArrayAdapter<String> adapter = null;
@@ -21,14 +22,16 @@ public class SearchActivity extends Activity {
     /**
      * Called when the activity is first created.
      */
+  
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.news_feed_layout);
-        list = new ArrayList<Apothecary>(DataModel.getInstance().getApothecarys().values());
+        list = new ArrayList<Apothecary>();
+        list.addAll(DataModel.getInstance().getApothecarys().values());
+        Collections.sort(list, new ApothecaryAlfComparator());
         adapter = new ApothecaryAdapter(this, R.layout.list_item, list);
-        ListView listView = (ListView) findViewById(R.id.list);
-        listView.setAdapter(adapter);
+        setListAdapter(adapter);
         filterText = (EditText) findViewById(R.id.search_box);
         filterText.addTextChangedListener(filterTextWatcher);
     }

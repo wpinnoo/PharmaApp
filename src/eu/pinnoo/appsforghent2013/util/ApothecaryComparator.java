@@ -20,6 +20,7 @@ public class ApothecaryComparator implements Comparator<Apothecary>{
                 + Math.pow(2, l.getLocation().getLon() - UserModel.getInstance().getCurrentLocation().getLon())));
         float resultr = (float) (Math.sqrt(Math.pow(2, r.getLocation().getLat() - UserModel.getInstance().getCurrentLocation().getLat())
                 + Math.pow(2, r.getLocation().getLon() - UserModel.getInstance().getCurrentLocation().getLon())));
+        //return l.getName().compareTo(r.getName());
         return (int) (resultl - resultr);
     }
     

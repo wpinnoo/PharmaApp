@@ -31,7 +31,7 @@ public class Apothecary {
     }
     
     public String toString(){
-        return "Apothecary "+name + " address="+address+" loc="+loc+" id="+id+" zip="+postcode+" gemeente="+gemeente;
+        return name;
     }
 
     public Location getLocation() {
