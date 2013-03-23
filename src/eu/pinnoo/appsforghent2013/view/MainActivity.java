@@ -31,12 +31,12 @@ public class MainActivity extends Activity {
         // Dashboard Places button
         Button btn_places = (Button) findViewById(R.id.btn_places);
         
-        // Dashboard Events button
-        Button btn_events = (Button) findViewById(R.id.btn_events);
-        
-        // Dashboard Photos button
-        Button btn_photos = (Button) findViewById(R.id.btn_photos);
-        
+//        // Dashboard Events button
+//        Button btn_events = (Button) findViewById(R.id.btn_events);
+//        
+//        // Dashboard Photos button
+//        Button btn_photos = (Button) findViewById(R.id.btn_photos);
+//        
         /**
          * Handling all button click events
          * */
@@ -86,25 +86,25 @@ public class MainActivity extends Activity {
 		});
         
         // Listening to Events button click
-        btn_events.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View view) {
-				// Launching News Feed Screen
-				Intent i = new Intent(getApplicationContext(), EventsActivity.class);
-				startActivity(i);
-			}
-		});
+//        btn_events.setOnClickListener(new View.OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View view) {
+//				// Launching News Feed Screen
+//				Intent i = new Intent(getApplicationContext(), EventsActivity.class);
+//				startActivity(i);
+//			}
+//		});
         
         // Listening to Photos button click
-        btn_photos.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View view) {
-				// Launching News Feed Screen
-				Intent i = new Intent(getApplicationContext(), PhotosActivity.class);
-				startActivity(i);
-			}
-		});
+//        btn_photos.setOnClickListener(new View.OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View view) {
+//				// Launching News Feed Screen
+//				Intent i = new Intent(getApplicationContext(), PhotosActivity.class);
+//				startActivity(i);
+//			}
+//		});
     }
 }
