@@ -4,12 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import eu.pinnoo.appsforghent2013.R;
 
-
-public class EventsActivity extends Activity {
+public class SearchActivity extends Activity {
 	 /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.events_layout);
+        setContentView(R.layout.news_feed_layout);
     }
 }
