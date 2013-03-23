@@ -1,14 +1,17 @@
-package eu.pinnoo.appsforghent2013.view;
+package mobi.pharmaapp.view;
 
+import mobi.pharmaapp.util.Location;
+import mobi.pharmaapp.util.PharmacyComparator;
+import mobi.pharmaapp.util.Scraper;
+import mobi.pharmaapp.util.Pharmacy;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import eu.pinnoo.appsforghent2013.R;
-import eu.pinnoo.appsforghent2013.models.DataModel;
-import eu.pinnoo.appsforghent2013.models.UserModel;
-import eu.pinnoo.appsforghent2013.util.*;
+import mobi.pharmaapp.models.DataModel;
+import mobi.pharmaapp.models.UserModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

@@ -1,36 +1,32 @@
-<eu.pinnoo.appsforghent2013.view.DashboardLayout
+<mobi.pharmaapp.view.DashboardLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_weight="1"
     android:background="#000000" >
-	<!--  News Feed Button -->
+    
     <Button
         android:id="@+id/btn_search"
         style="@style/DashboardButton"
         android:drawableTop="@drawable/btn_search"
         android:text="Zoek" />
     
-	<!--  Friends Button -->
     <Button
         android:id="@+id/btn_nearby"
         style="@style/DashboardButton"
         android:drawableTop="@drawable/btn_nearby"
         android:text="Dichtbij" />
     
-	<!--  Messages Button -->
     <Button
         android:id="@+id/btn_emergency"
         style="@style/DashboardButton"
         android:drawableTop="@drawable/btn_emergency"
         android:text="Van wacht" />
 	
-    <!--  Places Button -->
     <Button
         android:id="@+id/btn_about"
         style="@style/DashboardButton"
         android:drawableTop="@drawable/btn_about"
         android:text="Over" />
 
-
-</eu.pinnoo.appsforghent2013.view.DashboardLayout>
+</mobi.pharmaapp.view.DashboardLayout>

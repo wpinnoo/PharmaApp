@@ -1,4 +1,4 @@
-package eu.pinnoo.appsforghent2013.view;
+package mobi.pharmaapp.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.TextView;
 import eu.pinnoo.appsforghent2013.R;
-import eu.pinnoo.appsforghent2013.util.Pharmacy;
+import mobi.pharmaapp.util.Pharmacy;
 import java.util.ArrayList;
 
 /**

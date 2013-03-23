@@ -27,7 +27,7 @@
         android:layout_height="wrap_content" 
         android:layout_weight="1"
         android:autoLink="web"
-        android:text="https://github.com/wpinnoo/AppsForGhent2013\n"
+        android:text="http://www.PharmaApp.mobi\n"
         android:gravity="center"
         android:textSize="15sp"
     />

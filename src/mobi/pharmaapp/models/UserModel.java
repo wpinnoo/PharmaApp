@@ -1,6 +1,6 @@
-package eu.pinnoo.appsforghent2013.models;
+package mobi.pharmaapp.models;
 
-import eu.pinnoo.appsforghent2013.util.Location;
+import mobi.pharmaapp.util.Location;
 
 /**
  *

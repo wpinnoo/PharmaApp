@@ -1,4 +1,4 @@
-package eu.pinnoo.appsforghent2013.view;
+package mobi.pharmaapp.view;
 
 import android.app.Activity;
 import android.app.ListActivity;
@@ -12,12 +12,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import eu.pinnoo.appsforghent2013.R;
-import eu.pinnoo.appsforghent2013.models.DataModel;
-import eu.pinnoo.appsforghent2013.util.Pharmacy;
-import eu.pinnoo.appsforghent2013.util.PharmacyAlphComparator;
+import mobi.pharmaapp.models.DataModel;
+import mobi.pharmaapp.util.Pharmacy;
+import mobi.pharmaapp.util.PharmacyAlphComparator;
 import java.util.ArrayList;
 import java.util.Collections;
-import eu.pinnoo.appsforghent2013.view.InfoPopup;
+import mobi.pharmaapp.view.InfoPopup;
 
 /**
  *

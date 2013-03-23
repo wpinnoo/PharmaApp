@@ -1,4 +1,4 @@
-package eu.pinnoo.appsforghent2013.view;
+package mobi.pharmaapp.view;
 
 import android.app.Activity;
 import android.os.Bundle;

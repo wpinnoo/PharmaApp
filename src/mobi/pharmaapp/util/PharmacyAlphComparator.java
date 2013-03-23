@@ -1,4 +1,4 @@
-package eu.pinnoo.appsforghent2013.util;
+package mobi.pharmaapp.util;
 
 import java.util.Comparator;
 

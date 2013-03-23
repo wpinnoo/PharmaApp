@@ -1,6 +1,6 @@
-package eu.pinnoo.appsforghent2013.util;
+package mobi.pharmaapp.util;
 
-import eu.pinnoo.appsforghent2013.models.DataModel;
+import mobi.pharmaapp.models.DataModel;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

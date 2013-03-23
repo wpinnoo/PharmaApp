@@ -3,8 +3,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-     	
-    	<!--  Include Fragmented dashboard -->	
-		<include layout="@layout/fragment_layout"/>	
+    
+    <include layout="@layout/fragment_layout"/>	
 		    	    
 </LinearLayout>

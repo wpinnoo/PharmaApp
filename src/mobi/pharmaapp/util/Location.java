@@ -1,6 +1,6 @@
-package eu.pinnoo.appsforghent2013.util;
+package mobi.pharmaapp.util;
 
-import eu.pinnoo.appsforghent2013.models.UserModel;
+import mobi.pharmaapp.models.UserModel;
 
 /**
  *

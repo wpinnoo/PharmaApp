@@ -1,4 +1,4 @@
-package eu.pinnoo.appsforghent2013.view;
+package mobi.pharmaapp.view;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -8,8 +8,8 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 import eu.pinnoo.appsforghent2013.R;
-import eu.pinnoo.appsforghent2013.models.DataModel;
-import eu.pinnoo.appsforghent2013.util.Pharmacy;
+import mobi.pharmaapp.models.DataModel;
+import mobi.pharmaapp.util.Pharmacy;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
