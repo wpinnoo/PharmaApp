@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.TextView;
-import eu.pinnoo.appsforghent2013.R;
+import mobi.pharmaapp.R;
 import mobi.pharmaapp.util.Pharmacy;
 import java.util.ArrayList;
 

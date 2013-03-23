@@ -2,7 +2,7 @@ package mobi.pharmaapp.view;
 
 import android.app.Activity;
 import android.os.Bundle;
-import eu.pinnoo.appsforghent2013.R;
+import mobi.pharmaapp.R;
 
 /**
  *

@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
-import eu.pinnoo.appsforghent2013.R;
+import mobi.pharmaapp.R;
 import mobi.pharmaapp.models.DataModel;
 import mobi.pharmaapp.util.Pharmacy;
 import mobi.pharmaapp.util.PharmacyAlphComparator;

@@ -3,7 +3,7 @@ package mobi.pharmaapp.view;
 import android.app.Dialog;
 import android.content.Context;
 import android.widget.TextView;
-import eu.pinnoo.appsforghent2013.R;
+import mobi.pharmaapp.R;
 import mobi.pharmaapp.util.Pharmacy;
 
 /**

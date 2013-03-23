@@ -7,7 +7,7 @@ import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
-import eu.pinnoo.appsforghent2013.R;
+import mobi.pharmaapp.R;
 import mobi.pharmaapp.models.DataModel;
 import mobi.pharmaapp.util.Pharmacy;
 import java.util.ArrayList;
