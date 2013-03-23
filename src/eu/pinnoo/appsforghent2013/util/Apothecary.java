@@ -29,6 +29,10 @@ public class Apothecary {
         this.postcode = postcode;
         this.gemeente = gemeente;
     }
+    
+    public String toString(){
+        return "Apothecary "+name + " address="+address+" loc="+loc+" id="+id+" zip="+postcode+" gemeente="+gemeente;
+    }
 
     public Location getLocation() {
         return loc;

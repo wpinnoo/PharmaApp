@@ -24,7 +24,7 @@ import org.json.JSONObject;
  */
 public class Scraper {
 
-    public void loadData(DataModel model){
+    public static void loadData(DataModel model){
         JSONArray arr = downloadData();
         fetchData(arr, model);
     }

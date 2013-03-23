@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import eu.pinnoo.appsforghent2013.R;
-
+import eu.pinnoo.appsforghent2013.models.DataModel;
+import eu.pinnoo.appsforghent2013.util.*;
 
 
 public class MainActivity extends Activity {
@@ -15,7 +16,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_layout);
-        
+        Scraper.loadData(DataModel.getInstance());
         /**
          * Creating all buttons instances
          * */

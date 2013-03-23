@@ -22,6 +22,10 @@ public class Location {
         return lat;
     }
     
+    public String toString(){
+        return "["+lon+","+lat+"]";
+    }
+    
     public float getLon(){
         return lon;
     }
