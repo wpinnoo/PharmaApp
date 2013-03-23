@@ -30,7 +30,7 @@ public class DataModel {
         return apothecarys.get(id);
     }
     
-    public void addApothecary(String id, Apothecary a){
-        apothecarys.put(id, a);
+    public void addApothecary(Apothecary a){
+        apothecarys.put(a.getId(), a);
     }    
 }
