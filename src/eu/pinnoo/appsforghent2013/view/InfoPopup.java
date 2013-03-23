@@ -1,34 +1,29 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.pinnoo.appsforghent2013.view;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.widget.TextView;
 import eu.pinnoo.appsforghent2013.R;
-import eu.pinnoo.appsforghent2013.util.Apothecary;
+import eu.pinnoo.appsforghent2013.util.Pharmacy;
 
 /**
  *
- * @author flash
+ * @author see /AUTHORS
  */
 public class InfoPopup {
-    
-    public InfoPopup(){}
-    
-    public static void showPopup(Context c, Apothecary a){
-        Dialog d = new Dialog(c); 
+
+    public InfoPopup() {
+    }
+
+    public static void showPopup(Context c, Pharmacy a) {
+        Dialog d = new Dialog(c);
         d.setContentView(R.layout.popup_layout);
         d.setTitle(a.getName());
-        ((TextView)d.findViewById(R.id.apo_name)).setText("Naam: " + a.getName());
-        ((TextView)d.findViewById(R.id.apo_address)).setText("Adres: " + a.getAddress());
-        ((TextView)d.findViewById(R.id.apo_postcode)).setText("Postcode: " + a.getPostcode());
-        ((TextView)d.findViewById(R.id.apo_gemeente)).setText("Gemeente: " + a.getGemeente());
-        
-        
+        ((TextView) d.findViewById(R.id.apo_name)).setText("Name: " + a.getName());
+        ((TextView) d.findViewById(R.id.apo_address)).setText("Address: " + a.getAddress());
+        ((TextView) d.findViewById(R.id.apo_postcode)).setText("Zipcode: " + a.getZipcode());
+        ((TextView) d.findViewById(R.id.apo_gemeente)).setText("Town: " + a.getTown());
+
         d.show();
     }
-    
 }

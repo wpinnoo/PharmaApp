@@ -1,37 +1,34 @@
 package eu.pinnoo.appsforghent2013.models;
 
-import eu.pinnoo.appsforghent2013.util.Apothecary;
+import eu.pinnoo.appsforghent2013.util.Pharmacy;
 import java.util.HashMap;
 
 /**
  *
- * @author flash
+ * @author see /AUTHORS
  */
 public class DataModel {
-    
-    private HashMap<String, Apothecary> apothecarys;
+
+    private HashMap<String, Pharmacy> pharmacies;
     private static final DataModel model = new DataModel();
-    
-    private DataModel(){
-        apothecarys = new HashMap<String, Apothecary>();
+
+    private DataModel() {
+        pharmacies = new HashMap<String, Pharmacy>();
     }
-    
-    public static DataModel getInstance(){
+
+    public static DataModel getInstance() {
         return model;
     }
-    
-    public HashMap<String, Apothecary> getApothecarys(){
-        return apothecarys;
+
+    public HashMap<String, Pharmacy> getPharmacies() {
+        return pharmacies;
     }
-    
-    /*
-     * Can return null
-     */
-    public Apothecary getApothecary(String id){
-        return apothecarys.get(id);
+
+    public Pharmacy getPharmacy(String id) {
+        return pharmacies.get(id);
     }
-    
-    public void addApothecary(Apothecary a){
-        apothecarys.put(a.getId(), a);
-    }    
+
+    public void addPharmacy(Pharmacy a) {
+        pharmacies.put(a.getId(), a);
+    }
 }

@@ -1,32 +1,36 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.pinnoo.appsforghent2013.util;
+
+import eu.pinnoo.appsforghent2013.models.UserModel;
 
 /**
  *
- * @author flash
+ * @author see /AUTHORS
  */
 public class Location {
- 
+
     private float lat;
     private float lon;
-    
-    public Location(float lat, float lon){
+
+    public Location(float lat, float lon) {
         this.lon = lon;
         this.lat = lat;
     }
-    
-    public float getLat(){
+
+    public float getLat() {
         return lat;
     }
-    
-    public String toString(){
-        return "["+lon+","+lat+"]";
+
+    @Override
+    public String toString() {
+        return "[" + lon + "," + lat + "]";
     }
-    
-    public float getLon(){
+
+    public float getLon() {
         return lon;
+    }
+
+    public float distanceto(Location l) {
+        return (float) (Math.sqrt(Math.pow(2, getLat() - UserModel.getInstance().getCurrentLocation().getLat())
+                + Math.pow(2, getLon() - UserModel.getInstance().getCurrentLocation().getLon())));
     }
 }

@@ -13,44 +13,40 @@ import android.widget.EditText;
 import android.widget.ListView;
 import eu.pinnoo.appsforghent2013.R;
 import eu.pinnoo.appsforghent2013.models.DataModel;
-import eu.pinnoo.appsforghent2013.util.Apothecary;
-import eu.pinnoo.appsforghent2013.util.ApothecaryAlfComparator;
+import eu.pinnoo.appsforghent2013.util.Pharmacy;
+import eu.pinnoo.appsforghent2013.util.PharmacyAlphComparator;
 import java.util.ArrayList;
 import java.util.Collections;
 import eu.pinnoo.appsforghent2013.view.InfoPopup;
 
+/**
+ *
+ * @author see /AUTHORS
+ */
 public class SearchActivity extends ListActivity {
 
     private EditText filterText = null;
-   // private ArrayAdapter<String> adapter = null;
-    private ArrayList<Apothecary> list = null;
+    private ArrayList<Pharmacy> list = null;
     private ApothecaryAdapter adapter = null;
 
-    /**
-     * Called when the activity is first created.
-     */
-  
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.news_feed_layout);
-        list = new ArrayList<Apothecary>();
-        list.addAll(DataModel.getInstance().getApothecarys().values());
-        Collections.sort(list, new ApothecaryAlfComparator());
+        setContentView(R.layout.search_layout);
+        list = new ArrayList<Pharmacy>();
+        list.addAll(DataModel.getInstance().getPharmacies().values());
+        Collections.sort(list, new PharmacyAlphComparator());
         adapter = new ApothecaryAdapter(this, R.layout.list_item, list);
         setListAdapter(adapter);
         filterText = (EditText) findViewById(R.id.search_box);
         filterText.addTextChangedListener(filterTextWatcher);
         final ListView lv = getListView();
-        lv.setOnItemClickListener(new OnItemClickListener(){
-
+        lv.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> av, View view, int i, long l) {
-                InfoPopup.showPopup((Activity) (SearchActivity.this), (Apothecary) (lv.getItemAtPosition(i)));
+                InfoPopup.showPopup((Activity) (SearchActivity.this), (Pharmacy) (lv.getItemAtPosition(i)));
             }
-            
         });
     }
-    
     private TextWatcher filterTextWatcher = new TextWatcher() {
         public void afterTextChanged(Editable s) {
         }

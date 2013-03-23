@@ -1,6 +1,5 @@
 package eu.pinnoo.appsforghent2013.util;
 
-import android.R.array;
 import eu.pinnoo.appsforghent2013.models.DataModel;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,9 +8,6 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;
@@ -20,7 +16,7 @@ import org.json.JSONObject;
 
 /**
  *
- * @author Wouter Pinnoo <Wouter.Pinnoo@UGent.be>
+ * @author see /AUTHORS
  */
 public class Scraper {
 
@@ -54,7 +50,6 @@ public class Scraper {
             }
             inp.close();
             result = builder.toString();
-
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException e) {
@@ -78,15 +73,13 @@ public class Scraper {
             JSONObject obj = null;
             try {
                 obj = arr.getJSONObject(i);
-                Apothecary a = new Apothecary(Float.parseFloat(obj.getString("lat")), Float.parseFloat(obj.getString("long")), obj.getString("naam"), obj.getString("adres"), obj.getInt("distance"), obj.getString("id"), obj.getString("fid"), Integer.parseInt(obj.getString("postcode")), obj.getString("gemeente"));
-                model.addApothecary(a);
+                Pharmacy a = new Pharmacy(Float.parseFloat(obj.getString("lat")), Float.parseFloat(obj.getString("long")), obj.getString("naam"), obj.getString("adres"), obj.getInt("distance"), obj.getString("id"), obj.getString("fid"), Integer.parseInt(obj.getString("postcode")), obj.getString("gemeente"));
+                model.addPharmacy(a);
             } catch (JSONException ex) {
                 Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
             } catch (NullPointerException e) {
                 Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, e);
             }
         }
-
-
     }
 }

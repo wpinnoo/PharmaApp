@@ -15,16 +15,14 @@ package eu.pinnoo.appsforghent2013.view;
  * limitations under the License.
  */
 
-
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Custom layout that arranges children in a grid-like manner, optimizing for even horizontal and
- * vertical whitespace.
+ *
+ * @author see /AUTHORS
  */
 public class DashboardLayout extends ViewGroup {
 
@@ -50,8 +48,6 @@ public class DashboardLayout extends ViewGroup {
         mMaxChildWidth = 0;
         mMaxChildHeight = 0;
 
-        // Measure once to find the maximum child size.
-
         int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(
                 MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.AT_MOST);
         int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(
@@ -69,8 +65,6 @@ public class DashboardLayout extends ViewGroup {
             mMaxChildWidth = Math.max(mMaxChildWidth, child.getMeasuredWidth());
             mMaxChildHeight = Math.max(mMaxChildHeight, child.getMeasuredHeight());
         }
-
-        // Measure again for each child to be exactly the same size.
 
         childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(
                 mMaxChildWidth, MeasureSpec.EXACTLY);
@@ -98,7 +92,6 @@ public class DashboardLayout extends ViewGroup {
 
         final int count = getChildCount();
 
-        // Calculate the number of visible children.
         int visibleCount = 0;
         for (int i = 0; i < count; i++) {
             final View child = getChildAt(i);
