@@ -53,7 +53,7 @@ public class Scraper {
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException e) {
-            System.err.println(e);
+            Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, e);
         }
         JSONArray arr = null;
         try {

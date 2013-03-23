@@ -2,7 +2,6 @@ package mobi.pharmaapp.view;
 
 import android.app.Activity;
 import android.app.ListActivity;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,7 +16,6 @@ import mobi.pharmaapp.util.Pharmacy;
 import mobi.pharmaapp.util.PharmacyAlphComparator;
 import java.util.ArrayList;
 import java.util.Collections;
-import mobi.pharmaapp.view.InfoPopup;
 
 /**
  *
@@ -43,7 +41,7 @@ public class SearchActivity extends ListActivity {
         final ListView lv = getListView();
         lv.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> av, View view, int i, long l) {
-                InfoPopup.showPopup((Activity) (SearchActivity.this), (Pharmacy) (lv.getItemAtPosition(i)));
+                InfoPopup.showPopup(SearchActivity.this, (Pharmacy) (lv.getItemAtPosition(i)));
             }
         });
     }

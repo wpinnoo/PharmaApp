@@ -23,7 +23,6 @@ public class InfoPopup {
         ((TextView) d.findViewById(R.id.apo_address)).setText("Address: " + a.getAddress());
         ((TextView) d.findViewById(R.id.apo_zipcode)).setText("Zipcode: " + a.getZipcode());
         ((TextView) d.findViewById(R.id.apo_town)).setText("Town: " + a.getTown());
-
         d.show();
     }
 }

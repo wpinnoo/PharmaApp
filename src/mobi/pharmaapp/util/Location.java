@@ -12,24 +12,25 @@ public class Location {
     private float lon;
 
     public Location(float lat, float lon) {
-        this.lon = lon;
         this.lat = lat;
+        this.lon = lon;
+    }
+    
+    @Override
+    public String toString() {
+        return "[" + lon + "," + lat + "]";
     }
 
     public float getLat() {
         return lat;
     }
 
-    @Override
-    public String toString() {
-        return "[" + lon + "," + lat + "]";
-    }
 
     public float getLon() {
         return lon;
     }
 
-    public float distanceto(Location l) {
+    public float distanceTo(Location l) {
         return (float) (Math.sqrt(Math.pow(2, getLat() - UserModel.getInstance().getCurrentLocation().getLat())
                 + Math.pow(2, getLon() - UserModel.getInstance().getCurrentLocation().getLon())));
     }
