@@ -1,23 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#f8f9fe"
-    android:orientation="vertical" >
-
-
-    <LinearLayout
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical" >
+    <TextView
+        android:id="@+id/about_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1"
+        android:text="This app was made during the hackaton of AppsForGhent 2013.\n"
+        android:gravity="center_horizontal"
+        android:textSize="20sp"
+    />
+    <TextView
+        android:id="@+id/about_content"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dip"
-            android:text="Places Screen"
-            android:textColor="#ff29549f"
-            android:textSize="25dip"
-            android:textStyle="bold" />
-    </LinearLayout>
-
+        android:layout_height="wrap_content" 
+        android:layout_weight="1"
+        android:text="The source code is available at: "
+        android:gravity="center"
+        android:textSize="15sp"
+    />
+    <TextView
+        android:id="@+id/about_link"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1"
+        android:autoLink="web"
+        android:text="https://github.com/wpinnoo/AppsForGhent2013\n"
+        android:gravity="center"
+        android:textSize="15sp"
+    />
+    <TextView
+        android:id="@+id/about_link"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1"
+        android:text="Copyright: \nWouter Pinnoo\nStefaan Vermassen\nTitouan Vervack"
+        android:gravity="center"
+        android:textSize="15sp"
+    />
 </LinearLayout>

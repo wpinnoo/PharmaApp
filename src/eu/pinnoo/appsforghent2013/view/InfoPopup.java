@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.widget.TextView;
 import eu.pinnoo.appsforghent2013.R;
+import eu.pinnoo.appsforghent2013.util.Apothecary;
 
 /**
  *
@@ -17,11 +18,16 @@ public class InfoPopup {
     
     public InfoPopup(){}
     
-    public static void showPopup(Context c){
+    public static void showPopup(Context c, Apothecary a){
         Dialog d = new Dialog(c); 
         d.setContentView(R.layout.popup_layout);
-        //TextView txt = (TextView)d.findViewById(R.id.textbox);
-        //txt.setText("Jooo");
+        d.setTitle(a.getName());
+        ((TextView)d.findViewById(R.id.apo_name)).setText("Naam: " + a.getName());
+        ((TextView)d.findViewById(R.id.apo_address)).setText("Adres: " + a.getAddress());
+        ((TextView)d.findViewById(R.id.apo_postcode)).setText("Postcode: " + a.getPostcode());
+        ((TextView)d.findViewById(R.id.apo_gemeente)).setText("Gemeente: " + a.getGemeente());
+        
+        
         d.show();
     }
     
