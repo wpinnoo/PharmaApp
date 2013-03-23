@@ -1,7 +1,7 @@
 PharmaApp
 =========
 A simple application to find the nearest pharmacy from your current location. 
-This app was made for the AppsForGhent 2013 competition.
+This app was made for the AppsForGhent 2013 competition, we won for the European jury.
 
 ## Contributors
 * Wouter Pinnoo ([@wpinnoo](https://github.com/wpinnoo))
