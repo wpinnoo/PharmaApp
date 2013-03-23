@@ -1,16 +1,23 @@
 package eu.pinnoo.appsforghent2013.view;
 
+import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
+import android.widget.ListView;
 import eu.pinnoo.appsforghent2013.R;
 import eu.pinnoo.appsforghent2013.models.DataModel;
 import eu.pinnoo.appsforghent2013.util.Apothecary;
 import eu.pinnoo.appsforghent2013.util.ApothecaryAlfComparator;
 import java.util.ArrayList;
 import java.util.Collections;
+import eu.pinnoo.appsforghent2013.view.InfoPopup;
 
 public class SearchActivity extends ListActivity {
 
@@ -34,6 +41,14 @@ public class SearchActivity extends ListActivity {
         setListAdapter(adapter);
         filterText = (EditText) findViewById(R.id.search_box);
         filterText.addTextChangedListener(filterTextWatcher);
+        final ListView lv = getListView();
+        lv.setOnItemClickListener(new OnItemClickListener(){
+
+            public void onItemClick(AdapterView<?> av, View view, int i, long l) {
+                InfoPopup.showPopup((Activity) (SearchActivity.this), (Apothecary) (lv.getItemAtPosition(i)));
+            }
+            
+        });
     }
     
     private TextWatcher filterTextWatcher = new TextWatcher() {
