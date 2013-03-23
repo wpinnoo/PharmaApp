@@ -17,7 +17,7 @@ public class UserModel {
     
     private UserModel(){}
     
-    public static UserModel getUserModel(){
+    public static UserModel getInstance(){
         return userModel;
     }
     
@@ -26,11 +26,11 @@ public class UserModel {
     }
     
     public void setCurrentLocation(Location l){
-        UserModel.getUserModel().curLoc = curLoc;
+        UserModel.getInstance().curLoc = curLoc;
     }
     
     public static void setCurrentLocation(float lat, float lon){
-        UserModel.getUserModel().curLoc = new Location(lat, lon);
+        UserModel.getInstance().curLoc = new Location(lat, lon);
     }
     
 }
