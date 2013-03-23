@@ -6,6 +6,8 @@ package eu.pinnoo.appsforghent2013.util;
 
 import eu.pinnoo.appsforghent2013.models.UserModel;
 import java.util.Comparator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *

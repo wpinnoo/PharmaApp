@@ -24,11 +24,11 @@ import org.json.JSONObject;
  */
 public class Scraper {
 
-    public static void loadData(DataModel model){
+    public static void loadData(DataModel model) {
         JSONArray arr = downloadData();
         fetchData(arr, model);
     }
-    
+
     protected static InputStream getStream(String full_url) {
         try {
             URL url = new URL(full_url);
@@ -72,21 +72,21 @@ public class Scraper {
             return arr;
         }
     }
-    
-    protected static void fetchData(JSONArray arr, DataModel model){
+
+    protected static void fetchData(JSONArray arr, DataModel model) {
         for (int i = 0; i < arr.length(); i++) {
             JSONObject obj = null;
             try {
                 obj = arr.getJSONObject(i);
                 Apothecary a = new Apothecary(Float.parseFloat(obj.getString("lat")), Float.parseFloat(obj.getString("long")), obj.getString("naam"), obj.getString("adres"), obj.getInt("distance"), obj.getString("id"), obj.getString("fid"), Integer.parseInt(obj.getString("postcode")), obj.getString("gemeente"));
                 model.addApothecary(a);
-                } catch (JSONException ex) {
+            } catch (JSONException ex) {
                 Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
             } catch (NullPointerException e) {
-                System.err.println(e);
+                Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, e);
             }
         }
-        
-        
+
+
     }
 }

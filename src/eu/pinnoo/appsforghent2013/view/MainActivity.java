@@ -7,7 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import eu.pinnoo.appsforghent2013.R;
 import eu.pinnoo.appsforghent2013.models.DataModel;
+import eu.pinnoo.appsforghent2013.models.UserModel;
 import eu.pinnoo.appsforghent2013.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class MainActivity extends Activity {
@@ -17,6 +23,14 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_layout);
         Scraper.loadData(DataModel.getInstance());
+        List<Apothecary> apo = new ArrayList<Apothecary>();
+        apo.addAll(DataModel.getInstance().getApothecarys().values());
+        UserModel.getInstance().setCurrentLocation(new Location((float) 51.1006070515313,(float) 3.76332831384537));
+        Collections.sort(apo, new ApothecaryComparator());
+        Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, ""+apo.size());
+        for (int i=0 ; i < apo.size(); i++){
+            Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, apo.get(i).toString());
+        }
         /**
          * Creating all buttons instances
          * */
