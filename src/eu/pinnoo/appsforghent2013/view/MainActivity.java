@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				// Launching News Feed Screen
-				Intent i = new Intent(getApplicationContext(), NewsFeedActivity.class);
+				Intent i = new Intent(getApplicationContext(), SearchActivity.class);
 				startActivity(i);
 			}
 		});
@@ -59,7 +59,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				// Launching News Feed Screen
-				Intent i = new Intent(getApplicationContext(), FriendsActivity.class);
+				Intent i = new Intent(getApplicationContext(), LocateActivity.class);
 				startActivity(i);
 			}
 		});
@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				// Launching News Feed Screen
-				Intent i = new Intent(getApplicationContext(), MessagesActivity.class);
+				Intent i = new Intent(getApplicationContext(), GetWaitActivity.class);
 				startActivity(i);
 			}
 		});
@@ -81,7 +81,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				// Launching News Feed Screen
-				Intent i = new Intent(getApplicationContext(), PlacesActivity.class);
+				Intent i = new Intent(getApplicationContext(), AboutActivity.class);
 				startActivity(i);
 			}
 		});

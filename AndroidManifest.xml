@@ -13,6 +13,10 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        <activity android:name="eu.pinnoo.appsforghent2013.view.SearchActivity" ></activity>
+        <activity android:name="eu.pinnoo.appsforghent2013.view.LocateActivity" ></activity>
+        <activity android:name="eu.pinnoo.appsforghent2013.view.GetWaitActivity" ></activity>
+        <activity android:name="eu.pinnoo.appsforghent2013.view.AboutActivity" ></activity>
         </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
