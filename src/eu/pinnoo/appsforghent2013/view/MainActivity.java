@@ -6,7 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import eu.pinnoo.appsforghent2013.R;
-
+import eu.pinnoo.appsforghent2013.models.DataModel;
+import eu.pinnoo.appsforghent2013.models.UserModel;
+import eu.pinnoo.appsforghent2013.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class MainActivity extends Activity {
@@ -15,7 +22,15 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_layout);
-        
+        Scraper.loadData(DataModel.getInstance());
+        List<Apothecary> apo = new ArrayList<Apothecary>();
+        apo.addAll(DataModel.getInstance().getApothecarys().values());
+        UserModel.getInstance().setCurrentLocation(new Location((float) 51.1006070515313,(float) 3.76332831384537));
+        Collections.sort(apo, new ApothecaryComparator());
+        Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, ""+apo.size());
+        for (int i=0 ; i < apo.size(); i++){
+            Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, apo.get(i).toString());
+        }
         /**
          * Creating all buttons instances
          * */
@@ -31,12 +46,12 @@ public class MainActivity extends Activity {
         // Dashboard Places button
         Button btn_places = (Button) findViewById(R.id.btn_places);
         
-        // Dashboard Events button
-        Button btn_events = (Button) findViewById(R.id.btn_events);
-        
-        // Dashboard Photos button
-        Button btn_photos = (Button) findViewById(R.id.btn_photos);
-        
+//        // Dashboard Events button
+//        Button btn_events = (Button) findViewById(R.id.btn_events);
+//        
+//        // Dashboard Photos button
+//        Button btn_photos = (Button) findViewById(R.id.btn_photos);
+//        
         /**
          * Handling all button click events
          * */
@@ -47,7 +62,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				// Launching News Feed Screen
-				Intent i = new Intent(getApplicationContext(), NewsFeedActivity.class);
+				Intent i = new Intent(getApplicationContext(), SearchActivity.class);
 				startActivity(i);
 			}
 		});
@@ -58,7 +73,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				// Launching News Feed Screen
-				Intent i = new Intent(getApplicationContext(), FriendsActivity.class);
+				Intent i = new Intent(getApplicationContext(), LocateActivity.class);
 				startActivity(i);
 			}
 		});
@@ -69,7 +84,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				// Launching News Feed Screen
-				Intent i = new Intent(getApplicationContext(), MessagesActivity.class);
+				Intent i = new Intent(getApplicationContext(), GetWaitActivity.class);
 				startActivity(i);
 			}
 		});
@@ -80,31 +95,31 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				// Launching News Feed Screen
-				Intent i = new Intent(getApplicationContext(), PlacesActivity.class);
+				Intent i = new Intent(getApplicationContext(), AboutActivity.class);
 				startActivity(i);
 			}
 		});
         
         // Listening to Events button click
-        btn_events.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View view) {
-				// Launching News Feed Screen
-				Intent i = new Intent(getApplicationContext(), EventsActivity.class);
-				startActivity(i);
-			}
-		});
+//        btn_events.setOnClickListener(new View.OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View view) {
+//				// Launching News Feed Screen
+//				Intent i = new Intent(getApplicationContext(), EventsActivity.class);
+//				startActivity(i);
+//			}
+//		});
         
         // Listening to Photos button click
-        btn_photos.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View view) {
-				// Launching News Feed Screen
-				Intent i = new Intent(getApplicationContext(), PhotosActivity.class);
-				startActivity(i);
-			}
-		});
+//        btn_photos.setOnClickListener(new View.OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View view) {
+//				// Launching News Feed Screen
+//				Intent i = new Intent(getApplicationContext(), PhotosActivity.class);
+//				startActivity(i);
+//			}
+//		});
     }
 }

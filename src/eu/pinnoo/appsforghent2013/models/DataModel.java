@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.pinnoo.appsforghent2013.models;
 
 import eu.pinnoo.appsforghent2013.util.Apothecary;
@@ -14,9 +10,14 @@ import java.util.HashMap;
 public class DataModel {
     
     private HashMap<String, Apothecary> apothecarys;
+    private static final DataModel model = new DataModel();
     
-    public DataModel(){
+    private DataModel(){
         apothecarys = new HashMap<String, Apothecary>();
+    }
+    
+    public static DataModel getInstance(){
+        return model;
     }
     
     public HashMap<String, Apothecary> getApothecarys(){
@@ -30,7 +31,7 @@ public class DataModel {
         return apothecarys.get(id);
     }
     
-    public void addApothecary(String id, Apothecary a){
-        apothecarys.put(id, a);
+    public void addApothecary(Apothecary a){
+        apothecarys.put(a.getId(), a);
     }    
 }

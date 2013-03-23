@@ -10,27 +10,27 @@ import eu.pinnoo.appsforghent2013.util.Location;
  *
  * @author flash
  */
-public class UserModel { 
-    
+public class UserModel {
+
     private Location curLoc;
     private static final UserModel userModel = new UserModel();
-    
-    private UserModel(){}
-    
-    public static UserModel getUserModel(){
+
+    private UserModel() {
+    }
+
+    public static UserModel getInstance() {
         return userModel;
     }
-    
-    public Location getCurrentLocation(){
+
+    public Location getCurrentLocation() {
         return curLoc;
     }
-    
-    public void setCurrentLocation(Location l){
-        UserModel.getUserModel().curLoc = curLoc;
+
+    public void setCurrentLocation(Location l) {
+        curLoc = l;
     }
-    
-    public static void setCurrentLocation(float lat, float lon){
-        UserModel.getUserModel().curLoc = new Location(lat, lon);
+
+    public void setCurrentLocation(float lat, float lon) {
+        curLoc = new Location(lat, lon);
     }
-    
 }
