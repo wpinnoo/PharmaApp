@@ -11,3 +11,6 @@ This app was made for the AppsForGhent 2013 competition, we won for the European
 
 ## Logo's
 * Maxime Fernández Alonso
+
+# Screenshots
+![Screenshot of PharmaApp](https://raw.github.com/wpinnoo/PharmaApp/master/screenshots/all.png)
