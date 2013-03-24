@@ -2,6 +2,7 @@ package mobi.pharmaapp.view;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
@@ -26,6 +27,9 @@ public class LocateActivity extends MapActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nearby_layout);
+        
+        EasyTracker.getInstance().activityStart(this);
+        
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.getController().setZoom(12);
 

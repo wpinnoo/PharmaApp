@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
+import com.google.analytics.tracking.android.EasyTracker;
 import mobi.pharmaapp.R;
 import mobi.pharmaapp.models.DataModel;
 import mobi.pharmaapp.util.Pharmacy;
@@ -31,6 +32,9 @@ public class SearchActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_layout);
+        
+        EasyTracker.getInstance().activityStart(this);
+        
         list = new ArrayList<Pharmacy>();
         list.addAll(DataModel.getInstance().getPharmacies().values());
         Collections.sort(list, new PharmacyAlphComparator());
