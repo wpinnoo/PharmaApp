@@ -28,8 +28,6 @@ public class LocateActivity extends MapActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nearby_layout);
         
-        EasyTracker.getInstance().activityStart(this);
-        
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.getController().setZoom(12);
 
@@ -57,5 +55,15 @@ public class LocateActivity extends MapActivity {
     @Override
     protected boolean isRouteDisplayed() {
         return false;
+    }
+    
+    @Override
+    public void onStart(){
+        EasyTracker.getInstance().activityStart(this);
+    }
+    
+    @Override
+    public void onStop(){
+        EasyTracker.getInstance().activityStop(this);
     }
 }

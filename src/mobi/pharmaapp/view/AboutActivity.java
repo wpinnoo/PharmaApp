@@ -15,7 +15,15 @@ public class AboutActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_layout);
-        
+    }
+    
+    @Override
+    public void onStart(){
         EasyTracker.getInstance().activityStart(this);
+    }
+    
+    @Override
+    public void onStop(){
+        EasyTracker.getInstance().activityStop(this);
     }
 }

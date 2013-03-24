@@ -32,8 +32,6 @@ public class MainActivity extends Activity {
         
         Scraper.loadData(DataModel.getInstance(), this);
         
-        EasyTracker.getInstance().activityStart(this);
-        
         UserModel.getInstance().setCurrentLocation(new Location((float) 51.1006070515313, (float) 3.76332831384537));
 
         Button btn_search = (Button) findViewById(R.id.btn_search);
@@ -72,5 +70,15 @@ public class MainActivity extends Activity {
                 startActivity(i);
             }
         });
+    }
+    
+    @Override
+    public void onStart(){
+        EasyTracker.getInstance().activityStart(this);
+    }
+    
+    @Override
+    public void onStop(){
+        EasyTracker.getInstance().activityStop(this);
     }
 }

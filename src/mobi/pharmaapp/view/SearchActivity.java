@@ -33,8 +33,6 @@ public class SearchActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_layout);
         
-        EasyTracker.getInstance().activityStart(this);
-        
         list = new ArrayList<Pharmacy>();
         list.addAll(DataModel.getInstance().getPharmacies().values());
         Collections.sort(list, new PharmacyAlphComparator());
@@ -62,4 +60,14 @@ public class SearchActivity extends ListActivity {
             adapter.getFilter().filter(s);
         }
     };
+    
+    @Override
+    public void onStart(){
+        EasyTracker.getInstance().activityStart(this);
+    }
+    
+    @Override
+    public void onStop(){
+        EasyTracker.getInstance().activityStop(this);
+    }
 }
