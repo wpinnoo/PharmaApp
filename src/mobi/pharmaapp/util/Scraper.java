@@ -1,19 +1,21 @@
 package mobi.pharmaapp.util;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import mobi.pharmaapp.models.DataModel;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
@@ -34,6 +36,11 @@ public class Scraper {
         boolean download_data = parent.getSharedPreferences("PREFERENCE", parent.MODE_PRIVATE).getBoolean("download_data", true);
         JSONArray arr = null;
         if (download_data) {
+            if (!isNetworkAvailable(parent)) {
+                int i = 0;
+                showErrorDialogAndExit(parent);
+                return;
+            }
             arr = downloadData(parent);
         } else {
             try {
@@ -54,6 +61,24 @@ public class Scraper {
             }
         }
         fetchData(arr, model);
+    }
+
+    private static boolean isNetworkAvailable(Activity parent) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) parent.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
+
+    private static void showErrorDialogAndExit(final Activity parent) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(parent);
+        alert.setTitle("No internet connection available!");
+        alert.setMessage("You need an internet connection the first time you run this app. The app will close now.");
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                parent.finish();
+            }
+        });
+        alert.show();
     }
 
     protected static InputStream getStream(String full_url) {
