@@ -25,7 +25,7 @@ public class SearchActivity extends ListActivity {
 
     private EditText filterText = null;
     private ArrayList<Pharmacy> list = null;
-    private ApothecaryAdapter adapter = null;
+    private PharmacyAdapter adapter = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class SearchActivity extends ListActivity {
         list = new ArrayList<Pharmacy>();
         list.addAll(DataModel.getInstance().getPharmacies().values());
         Collections.sort(list, new PharmacyAlphComparator());
-        adapter = new ApothecaryAdapter(this, R.layout.list_item, list);
+        adapter = new PharmacyAdapter(this, R.layout.list_item, list);
         setListAdapter(adapter);
         filterText = (EditText) findViewById(R.id.search_box);
         filterText.addTextChangedListener(filterTextWatcher);

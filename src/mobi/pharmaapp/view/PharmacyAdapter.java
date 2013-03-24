@@ -15,12 +15,12 @@ import java.util.ArrayList;
  *
  * @author see /AUTHORS
  */
-public class ApothecaryAdapter extends ArrayAdapter<Pharmacy> {
+public class PharmacyAdapter extends ArrayAdapter<Pharmacy> {
 
     private ArrayList<Pharmacy> objects;
     private ArrayList<Pharmacy> original;
 
-    public ApothecaryAdapter(Context context, int textViewResourceId, ArrayList<Pharmacy> objects) {
+    public PharmacyAdapter(Context context, int textViewResourceId, ArrayList<Pharmacy> objects) {
         super(context, textViewResourceId, objects);
         this.objects = objects;
         original = new ArrayList<Pharmacy>();
