@@ -28,15 +28,10 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_layout);
-        Scraper.loadData(DataModel.getInstance());
-        List<Pharmacy> apo = new ArrayList<Pharmacy>();
-        apo.addAll(DataModel.getInstance().getPharmacies().values());
+        
+        Scraper.loadData(DataModel.getInstance(), this);
+        
         UserModel.getInstance().setCurrentLocation(new Location((float) 51.1006070515313, (float) 3.76332831384537));
-        Collections.sort(apo, new PharmacyComparator());
-        Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, "" + apo.size());
-        for (int i = 0; i < apo.size(); i++) {
-            Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, apo.get(i).toString());
-        }
 
         Button btn_search = (Button) findViewById(R.id.btn_search);
         Button btn_nearby = (Button) findViewById(R.id.btn_nearby);

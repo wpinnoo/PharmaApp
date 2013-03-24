@@ -1,10 +1,20 @@
 package mobi.pharmaapp.util;
 
+import android.app.Activity;
 import mobi.pharmaapp.models.DataModel;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.StreamCorruptedException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -20,8 +30,29 @@ import org.json.JSONObject;
  */
 public class Scraper {
 
-    public static void loadData(DataModel model) {
-        JSONArray arr = downloadData();
+    public static void loadData(DataModel model, Activity parent) {
+        boolean download_data = parent.getSharedPreferences("PREFERENCE", parent.MODE_PRIVATE).getBoolean("download_data", true);
+        JSONArray arr = null;
+        if (download_data) {
+            arr = downloadData(parent);
+        } else {
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(new File(new File(parent.getCacheDir(), "") + "JSONcache.srl")));
+                String line, content = "";
+                while ((line = br.readLine()) != null) {
+                    content += line;
+                }
+                arr = new JSONArray(content);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (StreamCorruptedException ex) {
+                Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (JSONException ex) {
+                Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         fetchData(arr, model);
     }
 
@@ -36,7 +67,7 @@ public class Scraper {
         }
     }
 
-    protected static JSONArray downloadData() {
+    protected static JSONArray downloadData(Activity parent) {
         InputStream inp = getStream("http://datatank.gent.be/Gezondheid/Apotheken.json");
         String result = "";
         try {
@@ -64,7 +95,21 @@ public class Scraper {
         } catch (JSONException ex) {
             Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            return arr;
+            try {
+                BufferedWriter out = new BufferedWriter(new FileWriter(new File(parent.getCacheDir(), "") + "JSONcache.srl"));
+                out.write(arr.toString());
+                out.close();
+                parent.getSharedPreferences("PREFERENCE", parent.MODE_PRIVATE)
+                        .edit()
+                        .putBoolean("download_data", false)
+                        .commit();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                return arr;
+            }
         }
     }
 
