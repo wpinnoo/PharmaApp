@@ -14,6 +14,7 @@ public class Pharmacy {
     private String fid;
     private int zipcode;
     private String town;
+    private String telnr;
 
     public Pharmacy(float lat, float lon, String name, String address, int dist, String id, String fid, int zipcode, String town) {
         this.loc = new Location(lat, lon);
@@ -24,6 +25,12 @@ public class Pharmacy {
         this.fid = fid;
         this.zipcode = zipcode;
         this.town = town;
+        telnr = "";
+    }
+    
+    public Pharmacy(float lat, float lon, String name, String address, int dist, String id, String fid, int zipcode, String town, String telnr) {
+        this(lat, lon, name, address, dist, id, fid, zipcode, town);
+        this.setTelnr(telnr);
     }
 
     @Override
@@ -67,5 +74,13 @@ public class Pharmacy {
 
     public String getTown() {
         return town;
+    }
+
+    public String getTelnr() {
+        return telnr;
+    }
+
+    public void setTelnr(String telnr) {
+        this.telnr = telnr;
     }
 }

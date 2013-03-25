@@ -2,7 +2,7 @@ package mobi.pharmaapp.view;
 
 import mobi.pharmaapp.util.Location;
 import mobi.pharmaapp.util.PharmacyComparator;
-import mobi.pharmaapp.util.Scraper;
+import mobi.pharmaapp.util.JSONScraper;
 import mobi.pharmaapp.util.Pharmacy;
 import android.app.Activity;
 import android.content.Intent;
@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_layout);
         
-        Scraper.loadData(DataModel.getInstance(), this);
+        JSONScraper.loadData(DataModel.getInstance(), this);
         
         UserModel.getInstance().setCurrentLocation(new Location((float) 51.1006070515313, (float) 3.76332831384537));
 

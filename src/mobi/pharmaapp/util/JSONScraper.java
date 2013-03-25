@@ -30,7 +30,7 @@ import org.json.JSONObject;
  *
  * @author see /AUTHORS
  */
-public class Scraper {
+public class JSONScraper {
 
     public static void loadData(DataModel model, Activity parent) {
         boolean download_data = parent.getSharedPreferences("PREFERENCE", parent.MODE_PRIVATE).getBoolean("download_data", true);
@@ -51,13 +51,13 @@ public class Scraper {
                 }
                 arr = new JSONArray(content);
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JSONScraper.class.getName()).log(Level.SEVERE, null, ex);
             } catch (StreamCorruptedException ex) {
-                Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JSONScraper.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
-                Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JSONScraper.class.getName()).log(Level.SEVERE, null, ex);
             } catch (JSONException ex) {
-                Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JSONScraper.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         fetchData(arr, model);
@@ -107,9 +107,9 @@ public class Scraper {
             inp.close();
             result = builder.toString();
         } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JSONScraper.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException e) {
-            Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(JSONScraper.class.getName()).log(Level.SEVERE, null, e);
         }
         JSONArray arr = null;
         try {
@@ -118,7 +118,7 @@ public class Scraper {
                 arr = obj.getJSONArray("Apotheken");
             }
         } catch (JSONException ex) {
-            Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JSONScraper.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 BufferedWriter out = new BufferedWriter(new FileWriter(new File(parent.getCacheDir(), "") + "JSONcache.srl"));
@@ -129,9 +129,9 @@ public class Scraper {
                         .putBoolean("download_data", false)
                         .commit();
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JSONScraper.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
-                Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JSONScraper.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 return arr;
             }
@@ -146,9 +146,9 @@ public class Scraper {
                 Pharmacy a = new Pharmacy(Float.parseFloat(obj.getString("lat")), Float.parseFloat(obj.getString("long")), beautifyName(obj.getString("naam")), obj.getString("adres"), obj.getInt("distance"), obj.getString("id"), obj.getString("fid"), Integer.parseInt(obj.getString("postcode")), obj.getString("gemeente"));
                 model.addPharmacy(a);
             } catch (JSONException ex) {
-                Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JSONScraper.class.getName()).log(Level.SEVERE, null, ex);
             } catch (NullPointerException e) {
-                Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(JSONScraper.class.getName()).log(Level.SEVERE, null, e);
             }
         }
     }
