@@ -58,6 +58,9 @@ public class HTMLScraper {
             try {
                 data += URLEncoder.encode(keys[i], "UTF-8") + "="
                         + URLEncoder.encode(values[i], "UTF-8");
+                if (i < keys.length - 1) {
+                    data += "&";
+                }
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(HTMLScraper.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -98,15 +101,15 @@ public class HTMLScraper {
 
     protected static void fetchData(String input, DataModel model) {
         String[] content = new String[0];
-        for(String s : input.split("\n")){
-            if(s.contains("table id=\"listResults\"")){
+        for (String s : input.split("\n")) {
+            if (s.contains("table id=\"listResults\"")) {
                 content = s.split("<tr>");
                 break;
             }
         }
-        
-        for(String s : content){
-            if(!s.contains("van wacht")){
+
+        for (String s : content) {
+            if (!(s.contains("van wacht") && s.contains("styleGreenText"))) {
                 continue;
             }
             String telnr = "";
@@ -114,17 +117,29 @@ public class HTMLScraper {
             String address = "";
             String town = "";
             String zipcode = "";
-            
-            for(String l : s.split("<br />")){
-                if(l.matches("([^)]*)")){
-                    // TODO: filter name, address, town and zipcode
+
+            //System.out.println(s);
+            for (String l : s.split("&nbsp;")) {
+                if (l.matches(".*<b>[A-Z]{2}.*")) {
+                    // TODO: trim name
+                    continue;
                 }
-                if(l.matches("[0-9]{9}")){
-                    // TODO: filter telnr
+                if (l.matches(".*Tel[.] :</b> [0-9]{9}.*")) {
+                    // TODO: trim telnr
+                    continue;
+                }
+                if (l.matches(".*([A-Za-z][^ ]*)+ [0-9]+.*")) {
+                    // TODO: trim address
+                    continue;
+                }
+                if (l.matches(".*[0-9]{4} [A-Z].*")) {
+                    // TODO: trim zip code and town
+                    continue;
                 }
             }
-            DataModel.getInstance().addEmergencyPharmacies(new Pharmacy((float) 0, (float) 0, beautifyName(name), address, 0, ""+0, ""+0, Integer.parseInt(zipcode), town, telnr));
+            DataModel.getInstance().addEmergencyPharmacies(new Pharmacy((float) 0, (float) 0, beautifyName(name), address, 0, "" + 0, "" + 0, Integer.parseInt(zipcode), town, telnr));
         }
+
     }
 
     private static String beautifyName(String name) {
