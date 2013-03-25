@@ -123,7 +123,7 @@ public class HTMLScraper {
                     // TODO: filter telnr
                 }
             }
-            DataModel.getInstance().addEmergencyPharmacies(new Pharmacy((float) 0, (float) 0, name, address, 0, ""+0, ""+0, Integer.parseInt(zipcode), town, telnr));
+            DataModel.getInstance().addEmergencyPharmacies(new Pharmacy((float) 0, (float) 0, beautifyName(name), address, 0, ""+0, ""+0, Integer.parseInt(zipcode), town, telnr));
         }
     }
 
