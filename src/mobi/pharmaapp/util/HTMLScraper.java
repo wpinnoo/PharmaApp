@@ -43,7 +43,7 @@ public class HTMLScraper {
     private static void showErrorDialogAndExit(final Activity parent) {
         AlertDialog.Builder alert = new AlertDialog.Builder(parent);
         alert.setTitle("No internet connection available!");
-        alert.setMessage("You need an internet connection to load the emergency pharmacists. The app will close now.");
+        alert.setMessage("You need an internet connection to load the emergency pharmacists.");
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 parent.finish();
@@ -109,7 +109,7 @@ public class HTMLScraper {
         }
 
         for (String s : content) {
-            if (!(s.contains("van wacht") && s.contains("styleGreenText"))) {
+            if (!(s.contains("van wacht") && (s.contains("styleGreenText")) || s.contains("styleRedText")) || s.contains("Bel naar het nummer")) {
                 continue;
             }
             String telnr = "";
@@ -117,29 +117,38 @@ public class HTMLScraper {
             String address = "";
             String town = "";
             String zipcode = "";
-
-            //System.out.println(s);
-            for (String l : s.split("&nbsp;")) {
+            String[] contentLines = s.split("&nbsp;");
+            boolean nameFound = false, townFound = false, addressFound = false;
+            for (String l : contentLines) {
                 if (l.matches(".*<b>[A-Z]{2}.*")) {
-                    // TODO: trim name
+                    name = beautifyName(l.replaceAll("<[^>]*>", "").trim());
+                    nameFound = true;
                     continue;
                 }
-                if (l.matches(".*Tel[.] :</b> [0-9]{9}.*")) {
-                    // TODO: trim telnr
+                if (nameFound && l.matches(".*[A-Z][^ ]+.* [0-9]+.*") && !l.matches(".*[0-9]:[0-9].*") && !l.matches(".*Tel\\. :.*")) {
+                    address = l.replaceAll("<[^>]*>", "").trim();
+                    addressFound = true;
                     continue;
                 }
-                if (l.matches(".*([A-Za-z][^ ]*)+ [0-9]+.*")) {
-                    // TODO: trim address
+                if (addressFound && l.matches(".*[0-9]{4} [A-Z].*")) {
+                    town = l.replaceAll("<[^>]*>", "").replaceAll(".*[0-9] ", "").trim();
+                    zipcode = l.replaceAll("<[^>]*>", "").replaceAll(" [A-Z].*", "").trim();
+                    townFound = true;
                     continue;
                 }
-                if (l.matches(".*[0-9]{4} [A-Z].*")) {
-                    // TODO: trim zip code and town
-                    continue;
+                if (townFound && l.matches(".*Tel[.] :</b> [0-9]{9}.*")) {
+                    telnr = l.replaceAll("<[^>]*>", "").replaceAll("Tel\\. : ", "").trim();
                 }
             }
-            DataModel.getInstance().addEmergencyPharmacies(new Pharmacy((float) 0, (float) 0, beautifyName(name), address, 0, "" + 0, "" + 0, Integer.parseInt(zipcode), town, telnr));
+            Pharmacy p = null;
+            try {
+                p = new Pharmacy((float) 0, (float) 0, name, address, 0, "0", "0", Integer.parseInt(zipcode), town, telnr);
+            } catch (NumberFormatException e) {
+                p = new Pharmacy((float) 0, (float) 0, name, address, 0, "0", "0", 0, town, telnr);
+            } finally {
+                DataModel.getInstance().addEmergencyPharmacy(p);
+            }
         }
-
     }
 
     private static String beautifyName(String name) {

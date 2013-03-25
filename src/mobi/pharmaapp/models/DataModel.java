@@ -39,7 +39,7 @@ public class DataModel {
         pharmacies.put(a.getId(), a);
     }
     
-    public void addEmergencyPharmacies(Pharmacy a){
+    public void addEmergencyPharmacy(Pharmacy a){
         em_pharmacies.add(a);
     }
 }

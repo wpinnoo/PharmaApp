@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import com.google.analytics.tracking.android.EasyTracker;
 import mobi.pharmaapp.R;
+import mobi.pharmaapp.models.DataModel;
+import mobi.pharmaapp.util.HTMLScraper;
 
 /**
  *
@@ -15,6 +17,9 @@ public class GetWaitActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.emergency_layout);
+        
+        // Ask the user for this data (zipcode, city, date, etc.)
+        HTMLScraper.loadData(DataModel.getInstance(), this, "9000", "Gent", "25", "03", "2013", "2230", "0", "0");
     }
     
     @Override
