@@ -30,6 +30,12 @@ public class Pharmacy {
     public String toString() {
         return name;
     }
+    
+    public boolean matches(String s){
+        s = s.toLowerCase();
+        return name.toLowerCase().contains(s) || address.toLowerCase().contains(s)
+                || ("" + zipcode).contains(s) || town.toLowerCase().contains(s);
+    }
 
     public Location getLocation() {
         return loc;

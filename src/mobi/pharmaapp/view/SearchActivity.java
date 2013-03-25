@@ -1,6 +1,5 @@
 package mobi.pharmaapp.view;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.text.Editable;

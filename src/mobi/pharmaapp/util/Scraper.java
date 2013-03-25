@@ -143,7 +143,7 @@ public class Scraper {
             JSONObject obj = null;
             try {
                 obj = arr.getJSONObject(i);
-                Pharmacy a = new Pharmacy(Float.parseFloat(obj.getString("lat")), Float.parseFloat(obj.getString("long")), obj.getString("naam"), obj.getString("adres"), obj.getInt("distance"), obj.getString("id"), obj.getString("fid"), Integer.parseInt(obj.getString("postcode")), obj.getString("gemeente"));
+                Pharmacy a = new Pharmacy(Float.parseFloat(obj.getString("lat")), Float.parseFloat(obj.getString("long")), beautifyName(obj.getString("naam")), obj.getString("adres"), obj.getInt("distance"), obj.getString("id"), obj.getString("fid"), Integer.parseInt(obj.getString("postcode")), obj.getString("gemeente"));
                 model.addPharmacy(a);
             } catch (JSONException ex) {
                 Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, ex);
@@ -151,5 +151,15 @@ public class Scraper {
                 Logger.getLogger(Scraper.class.getName()).log(Level.SEVERE, null, e);
             }
         }
+    }
+
+    private static String beautifyName(String name) {
+        String result = "";
+        for (String subname : name.split("\n")[0].split(" ")){
+            char letter = subname.charAt(0);
+            subname = subname.toLowerCase();
+            result += letter + subname.substring(1, subname.length()) + " ";
+        }
+        return result.trim();
     }
 }

@@ -56,7 +56,7 @@ public class PharmacyAdapter extends ArrayAdapter<Pharmacy> {
                 } else {
                     ArrayList<Pharmacy> filterResultsData = new ArrayList<Pharmacy>();
                     for (Pharmacy item : original) {
-                        if (item.getName().startsWith(charSequence.toString().toUpperCase())) {
+                        if (item.matches(charSequence.toString())) {
                             filterResultsData.add(item);
                         }
                     }

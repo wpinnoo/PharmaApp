@@ -8,7 +8,7 @@
     <EditText android:id="@+android:id/search_box" 
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:hint="type to filter"
+              android:hint="Zoek..."
               android:inputType="text"
               android:maxLines="1"/>
 
