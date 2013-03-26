@@ -42,4 +42,9 @@ public class DataModel {
     public void addEmergencyPharmacy(Pharmacy a){
         em_pharmacies.add(a);
     }
+    
+    public void reset(){
+        pharmacies.clear();
+        em_pharmacies.clear();
+    }
 }
