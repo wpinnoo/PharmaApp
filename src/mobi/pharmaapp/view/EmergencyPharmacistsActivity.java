@@ -2,21 +2,30 @@ package mobi.pharmaapp.view;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
 import com.google.analytics.tracking.android.EasyTracker;
+import java.util.Date;
 import mobi.pharmaapp.R;
 import mobi.pharmaapp.models.DataModel;
 import mobi.pharmaapp.util.HTMLScraper;
-import mobi.pharmaapp.util.JSONScraper;
+import mobi.pharmaapp.util.Pharmacy;
 
 /**
  *
  * @author see /AUTHORS
  */
-public class GetWaitActivity extends Activity {
+public class EmergencyPharmacistsActivity extends ListActivity {
+
+    private Date date;
+    private PharmacyAdapter adapter = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,6 +34,19 @@ public class GetWaitActivity extends Activity {
 
         // Ask the user for this data (zipcode, city, date, etc.)
         new LoadData(DataModel.getInstance(), this, "9000", "Gent", "25", "03", "2013", "2230", "0", "0").execute();
+        date = new Date();
+        ((TextView) findViewById(R.id.date_field)).setText("Apothekers voor: " + date.toLocaleString());
+    }
+
+    private void setListContent() {
+        adapter = new PharmacyAdapter(this, R.layout.list_item, DataModel.getInstance().getEmergencyPharmacies());
+        setListAdapter(adapter);
+        final ListView lv = getListView();
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> av, View view, int i, long l) {
+                InfoPopup.showPopup(EmergencyPharmacistsActivity.this, (Pharmacy) (lv.getItemAtPosition(i)));
+            }
+        });
     }
 
     @Override
@@ -53,7 +75,7 @@ public class GetWaitActivity extends Activity {
 
     private class LoadData extends AsyncTask<Void, Void, Integer> {
 
-        private ProgressDialog dialog = new ProgressDialog(GetWaitActivity.this);
+        private ProgressDialog dialog = new ProgressDialog(EmergencyPharmacistsActivity.this);
         private DataModel model;
         private Activity parent;
         private String zipcode, town, day, month, year, hour, lat, lng;
@@ -86,7 +108,9 @@ public class GetWaitActivity extends Activity {
         protected void onPostExecute(Integer result) {
             dialog.dismiss();
             if (result.intValue() == 1) {
-                showErrorDialogAndExit(GetWaitActivity.this);
+                showErrorDialogAndExit(EmergencyPharmacistsActivity.this);
+            } else {
+                setListContent();
             }
         }
     }

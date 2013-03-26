@@ -20,7 +20,7 @@
         <activity android:name="mobi.pharmaapp.view.LocateActivity" >
             <uses-library android:name="com.google.android.maps"/>
         </activity>
-        <activity android:name="mobi.pharmaapp.view.GetWaitActivity" ></activity>
+        <activity android:name="mobi.pharmaapp.view.EmergencyPharmacistsActivity" ></activity>
         <activity android:name="mobi.pharmaapp.view.AboutActivity" ></activity>
         
         <meta-data

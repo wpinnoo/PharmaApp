@@ -56,7 +56,7 @@ public class MainActivity extends Activity {
         btn_emergency.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), GetWaitActivity.class);
+                Intent i = new Intent(getApplicationContext(), EmergencyPharmacistsActivity.class);
                 startActivity(i);
             }
         });
