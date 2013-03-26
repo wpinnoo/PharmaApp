@@ -32,14 +32,12 @@ import org.json.JSONObject;
  */
 public class JSONScraper {
 
-    public static void loadData(DataModel model, Activity parent) {
+    public static int loadData(DataModel model, Activity parent) {
         boolean download_data = parent.getSharedPreferences("PREFERENCE", parent.MODE_PRIVATE).getBoolean("download_data", true);
         JSONArray arr = null;
         if (download_data) {
             if (!isNetworkAvailable(parent)) {
-                int i = 0;
-                showErrorDialogAndExit(parent);
-                return;
+                return 1;
             }
             arr = downloadData(parent);
         } else {
@@ -61,24 +59,13 @@ public class JSONScraper {
             }
         }
         fetchData(arr, model);
+        return 0;
     }
 
     private static boolean isNetworkAvailable(Activity parent) {
         ConnectivityManager connectivityManager = (ConnectivityManager) parent.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
-    }
-
-    private static void showErrorDialogAndExit(final Activity parent) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(parent);
-        alert.setTitle("No internet connection available!");
-        alert.setMessage("You need an internet connection the first time you run this app. The app will close now.");
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                parent.finish();
-            }
-        });
-        alert.show();
     }
 
     protected static InputStream getStream(String full_url) {

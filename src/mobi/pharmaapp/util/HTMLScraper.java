@@ -25,31 +25,19 @@ import mobi.pharmaapp.models.DataModel;
  */
 public class HTMLScraper {
 
-    public static void loadData(DataModel model, Activity parent, String zipcode, String town, String day, String month, String year, String hour, String lat, String lng) {
+    public static int loadData(DataModel model, Activity parent, String zipcode, String town, String day, String month, String year, String hour, String lat, String lng) {
         if (!isNetworkAvailable(parent)) {
-            showErrorDialogAndExit(parent);
-            return;
+            return 1;
         }
         String content = downloadData(parent, zipcode, town, day, month, year, hour, lat, lng);
         fetchData(content, model);
+        return 0;
     }
 
     private static boolean isNetworkAvailable(Activity parent) {
         ConnectivityManager connectivityManager = (ConnectivityManager) parent.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
-    }
-
-    private static void showErrorDialogAndExit(final Activity parent) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(parent);
-        alert.setTitle("No internet connection available!");
-        alert.setMessage("You need an internet connection to load the emergency pharmacists.");
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                parent.finish();
-            }
-        });
-        alert.show();
     }
 
     protected static String encodePostParameters(String[] keys, String[] values) {
