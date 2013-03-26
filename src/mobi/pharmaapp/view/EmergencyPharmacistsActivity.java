@@ -34,7 +34,7 @@ public class EmergencyPharmacistsActivity extends ListActivity {
 
         // Ask the user for this data (zipcode, city, etc.)
         date = new Date();
-        new LoadData(DataModel.getInstance(), this, "9000", "Gent", ""+date.getDate(), ""+date.getMonth(), ""+date.getYear(), ""+date.getHours()+date.getMinutes(), "0", "0").execute();
+        new LoadData(this, "9000", "Gent", ""+date.getDate(), ""+date.getMonth(), ""+date.getYear(), ""+date.getHours()+date.getMinutes(), "0", "0").execute();
         ((TextView) findViewById(R.id.date_field)).setText("Apothekers voor: " + date.toLocaleString());
     }
 
@@ -76,12 +76,10 @@ public class EmergencyPharmacistsActivity extends ListActivity {
     private class LoadData extends AsyncTask<Void, Void, Integer> {
 
         private ProgressDialog dialog = new ProgressDialog(EmergencyPharmacistsActivity.this);
-        private DataModel model;
         private Activity parent;
         private String zipcode, town, day, month, year, hour, lat, lng;
 
-        public LoadData(DataModel model, Activity parent, String zipcode, String town, String day, String month, String year, String hour, String lat, String lng) {
-            this.model = model;
+        public LoadData(Activity parent, String zipcode, String town, String day, String month, String year, String hour, String lat, String lng) {
             this.parent = parent;
             this.zipcode = zipcode;
             this.town = town;
@@ -101,7 +99,7 @@ public class EmergencyPharmacistsActivity extends ListActivity {
 
         @Override
         protected Integer doInBackground(Void... params) {
-            return HTMLScraper.loadData(model, parent, zipcode, town, day, month, year, hour, lat, lng);
+            return HTMLScraper.loadData(parent, zipcode, town, day, month, year, hour, lat, lng);
         }
 
         @Override

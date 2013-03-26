@@ -25,12 +25,12 @@ import mobi.pharmaapp.models.DataModel;
  */
 public class HTMLScraper {
 
-    public static int loadData(DataModel model, Activity parent, String zipcode, String town, String day, String month, String year, String hour, String lat, String lng) {
+    public static int loadData(Activity parent, String zipcode, String town, String day, String month, String year, String hour, String lat, String lng) {
         if (!isNetworkAvailable(parent)) {
             return 1;
         }
         String content = downloadData(parent, zipcode, town, day, month, year, hour, lat, lng);
-        fetchData(content, model);
+        fetchData(content);
         return 0;
     }
 
@@ -87,7 +87,8 @@ public class HTMLScraper {
         }
     }
 
-    protected static void fetchData(String input, DataModel model) {
+    protected static void fetchData(String input) {
+        DataModel.getInstance().reset();
         String[] content = new String[0];
         for (String s : input.split("\n")) {
             if (s.contains("table id=\"listResults\"")) {
