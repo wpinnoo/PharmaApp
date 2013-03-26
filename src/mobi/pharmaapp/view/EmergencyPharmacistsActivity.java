@@ -32,9 +32,9 @@ public class EmergencyPharmacistsActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.emergency_layout);
 
-        // Ask the user for this data (zipcode, city, date, etc.)
-        new LoadData(DataModel.getInstance(), this, "9000", "Gent", "25", "03", "2013", "2230", "0", "0").execute();
+        // Ask the user for this data (zipcode, city, etc.)
         date = new Date();
+        new LoadData(DataModel.getInstance(), this, "9000", "Gent", ""+date.getDate(), ""+date.getMonth(), ""+date.getYear(), ""+date.getHours()+date.getMinutes(), "0", "0").execute();
         ((TextView) findViewById(R.id.date_field)).setText("Apothekers voor: " + date.toLocaleString());
     }
 
