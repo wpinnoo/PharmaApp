@@ -1,9 +1,7 @@
 package mobi.pharmaapp.util;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import java.io.BufferedReader;
@@ -110,7 +108,7 @@ public class HTMLScraper {
             boolean nameFound = false, townFound = false, addressFound = false;
             for (String l : contentLines) {
                 if (l.matches(".*<b>[A-Z]{2}.*")) {
-                    name = beautifyName(l.replaceAll("<[^>]*>", "").trim());
+                    name = Pharmacy.beautifyName(l.replaceAll("<[^>]*>", "").trim());
                     nameFound = true;
                     continue;
                 }
@@ -131,22 +129,12 @@ public class HTMLScraper {
             }
             Pharmacy p = null;
             try {
-                p = new Pharmacy((float) 0, (float) 0, name, address, 0, "0", "0", Integer.parseInt(zipcode), town, telnr);
+                p = new Pharmacy((float) 0, (float) 0, name, address, 0, "0", "0", Integer.parseInt(zipcode), Pharmacy.beautifyName(town), telnr);
             } catch (NumberFormatException e) {
-                p = new Pharmacy((float) 0, (float) 0, name, address, 0, "0", "0", 0, town, telnr);
+                p = new Pharmacy((float) 0, (float) 0, name, address, 0, "0", "0", 0, Pharmacy.beautifyName(town), telnr);
             } finally {
                 DataModel.getInstance().addEmergencyPharmacy(p);
             }
         }
-    }
-
-    private static String beautifyName(String name) {
-        String result = "";
-        for (String subname : name.split("\n")[0].split(" ")) {
-            char letter = subname.charAt(0);
-            subname = subname.toLowerCase();
-            result += letter + subname.substring(1, subname.length()) + " ";
-        }
-        return result.trim();
     }
 }
