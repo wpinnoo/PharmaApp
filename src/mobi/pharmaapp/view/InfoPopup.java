@@ -36,6 +36,7 @@ public class InfoPopup {
         ((TextView) d.findViewById(R.id.apo_address)).setText("Address: " + a.getAddress());
         ((TextView) d.findViewById(R.id.apo_zipcode)).setText("Zipcode: " + a.getZipcode());
         ((TextView) d.findViewById(R.id.apo_town)).setText("Town: " + a.getTown());
+        a.setTelnr("+3293445433");
         if (!"".equals(a.getTelnr())){
             LinearLayout ll = (LinearLayout) d.findViewById(R.id.layout);
             TextView tel = new TextView(c);
@@ -43,7 +44,7 @@ public class InfoPopup {
             tel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
             tel.setText("Telephone: " + a.getTelnr());
             ll.addView(tel);
-            Linkify.addLinks(tel, Pattern.compile("\\+?(\\d){2,3} (\\d){3} (\\d){2,3} (\\d){2}"),"tel:");
+            Linkify.addLinks(tel, Pattern.compile("\\+?(\\d){8,11}"),"tel:");
         }
         d.show();
     }

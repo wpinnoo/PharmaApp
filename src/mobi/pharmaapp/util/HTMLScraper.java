@@ -124,7 +124,7 @@ public class HTMLScraper {
                     continue;
                 }
                 if (townFound && l.matches(".*Tel[.] :</b> [0-9]{9}.*")) {
-                    telnr = Pharmacy.beautifyTelnr(l.replaceAll("<[^>]*>", "").replaceAll("Tel\\. : ", "").trim());
+                    telnr = l.replaceAll("<[^>]*>", "").replaceAll("Tel\\. : ", "").trim();
                 }
             }
             Pharmacy p = null;
