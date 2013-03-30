@@ -14,6 +14,10 @@ public class Pharmacy {
     private String fid;
     private int zipcode;
     private String town;
+    /*
+     * Telnr should always be of the format: xx xxx xxx xxx
+     * x being a digit
+     */
     private String telnr;
 
     public Pharmacy(float lat, float lon, String name, String address, int dist, String id, String fid, int zipcode, String town) {

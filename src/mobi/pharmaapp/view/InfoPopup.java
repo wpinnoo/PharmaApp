@@ -3,11 +3,19 @@ package mobi.pharmaapp.view;
 import android.app.ActionBar.LayoutParams;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.text.Editable;
+import android.text.method.KeyListener;
+import android.text.util.Linkify;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import java.util.regex.Pattern;
 import mobi.pharmaapp.R;
 import mobi.pharmaapp.util.Pharmacy;
 
@@ -20,7 +28,7 @@ public class InfoPopup {
     public InfoPopup() {
     }
 
-    public static void showPopup(Context c, Pharmacy a) {
+    public static void showPopup(final Context c, final Pharmacy a) {
         Dialog d = new Dialog(c);
         d.setContentView(R.layout.popup_layout);
         d.setTitle(a.getName());
@@ -35,6 +43,7 @@ public class InfoPopup {
             tel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
             tel.setText("Telephone: " + a.getTelnr());
             ll.addView(tel);
+            Linkify.addLinks(tel, Pattern.compile("(\\d){2} (\\d){3} (\\d){3} (\\d){2}"),"tel:");
         }
         d.show();
     }
