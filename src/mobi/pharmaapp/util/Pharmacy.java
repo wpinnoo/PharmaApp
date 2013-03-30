@@ -87,6 +87,13 @@ public class Pharmacy {
     public void setTelnr(String telnr) {
         this.telnr = telnr;
     }
+    
+    public static String beautifyTelnr(String telnr) {
+        if(telnr.length() != 9){
+            return telnr; // Should not happen
+        }
+        return telnr.substring(0, 2) + " " + telnr.substring(2,5) + " " + telnr.substring(5,7) + " " + telnr.substring(7);
+    }
 
     public static String beautifyName(String name) {
         String result = "";
