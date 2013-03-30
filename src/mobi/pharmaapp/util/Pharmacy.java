@@ -30,7 +30,7 @@ public class Pharmacy {
 
     public Pharmacy(float lat, float lon, String name, String address, int dist, String id, String fid, int zipcode, String town, String telnr) {
         this(lat, lon, name, address, dist, id, fid, zipcode, town);
-        this.setTelnr(telnr);
+        this.telnr = telnr;
     }
 
     @Override
