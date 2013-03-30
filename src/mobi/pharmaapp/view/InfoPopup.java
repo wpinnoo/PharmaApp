@@ -43,7 +43,7 @@ public class InfoPopup {
             tel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
             tel.setText("Telephone: " + a.getTelnr());
             ll.addView(tel);
-            Linkify.addLinks(tel, Pattern.compile("(\\d){2} (\\d){3} (\\d){3} (\\d){2}"),"tel:");
+            Linkify.addLinks(tel, Pattern.compile("\\+?(\\d){2,3} (\\d){3} (\\d){2,3} (\\d){2}"),"tel:");
         }
         d.show();
     }

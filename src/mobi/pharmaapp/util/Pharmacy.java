@@ -15,8 +15,8 @@ public class Pharmacy {
     private int zipcode;
     private String town;
     /*
-     * Telnr should always be of the format: xx xxx xxx xxx
-     * x being a digit
+     * Telnr should always be of the format: yyxx xxx yxx xxx
+     * x being a digit, y being an optional digit
      */
     private String telnr;
 
@@ -87,7 +87,7 @@ public class Pharmacy {
     public void setTelnr(String telnr) {
         this.telnr = telnr;
     }
-    
+
     public static String beautifyTelnr(String telnr) {
         if(telnr.length() != 9){
             return telnr; // Should not happen
