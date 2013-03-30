@@ -3,16 +3,8 @@ package mobi.pharmaapp.view;
 import android.app.ActionBar.LayoutParams;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.text.Editable;
-import android.text.method.KeyListener;
 import android.text.util.Linkify;
-import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.regex.Pattern;
@@ -37,14 +29,14 @@ public class InfoPopup {
         ((TextView) d.findViewById(R.id.apo_zipcode)).setText("Zipcode: " + a.getZipcode());
         ((TextView) d.findViewById(R.id.apo_town)).setText("Town: " + a.getTown());
         a.setTelnr("+3293445433");
-        if (!"".equals(a.getTelnr())){
+        if (!"".equals(a.getTelnr())) {
             LinearLayout ll = (LinearLayout) d.findViewById(R.id.layout);
             TextView tel = new TextView(c);
-            tel.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+            tel.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
             tel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
             tel.setText("Telephone: " + a.getTelnr());
             ll.addView(tel);
-            Linkify.addLinks(tel, Pattern.compile("\\+?(\\d){8,11}"),"tel:");
+            Linkify.addLinks(tel, Pattern.compile("\\+?(\\d){8,11}"), "tel:");
         }
         d.show();
     }

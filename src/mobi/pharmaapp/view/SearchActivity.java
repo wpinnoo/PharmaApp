@@ -61,13 +61,13 @@ public class SearchActivity extends ListActivity {
     };
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         EasyTracker.getInstance().activityStop(this);
     }

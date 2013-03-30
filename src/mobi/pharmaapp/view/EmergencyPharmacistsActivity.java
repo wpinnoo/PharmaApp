@@ -12,7 +12,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.google.analytics.tracking.android.EasyTracker;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import mobi.pharmaapp.R;
 import mobi.pharmaapp.models.DataModel;
 import mobi.pharmaapp.util.HTMLScraper;
@@ -24,18 +28,19 @@ import mobi.pharmaapp.util.Pharmacy;
  */
 public class EmergencyPharmacistsActivity extends ListActivity {
 
-    private Date date;
+    private Calendar cal;
+    private DateFormat datef;
     private PharmacyAdapter adapter = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.emergency_layout);
-
+        cal = new GregorianCalendar();
+        datef = new SimpleDateFormat();
         // Ask the user for this data (zipcode, city, etc.)
-        date = new Date();
-        new LoadData(this, "9000", "Gent", ""+date.getDate(), ""+date.getMonth(), ""+date.getYear(), ""+date.getHours()+date.getMinutes(), "0", "0").execute();
-        ((TextView) findViewById(R.id.date_field)).setText("Apothekers voor: " + date.toLocaleString());
+        new LoadData(this, "9000", "Gent", "" + Calendar.DAY_OF_MONTH, "" + cal.get(Calendar.MONTH), "" + (cal.get(Calendar.YEAR) - 1900), "" + cal.get(Calendar.HOUR_OF_DAY) + cal.get(Calendar.MINUTE), "0", "0").execute();
+        ((TextView) findViewById(R.id.date_field)).setText("Apothekers voor: " + datef.format(new Date()));
     }
 
     private void setListContent() {
