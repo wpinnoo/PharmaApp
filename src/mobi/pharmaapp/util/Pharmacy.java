@@ -91,6 +91,7 @@ public class Pharmacy {
     public static String beautifyName(String name) {
         String result = "";
         for (String subname : name.split("\n")[0].split(" ")) {
+            if(subname.isEmpty()) continue;
             char letter = subname.charAt(0);
             subname = subname.toLowerCase();
             result += letter + subname.substring(1, subname.length()) + " ";
@@ -98,6 +99,7 @@ public class Pharmacy {
         if (result.contains("-")) {
             String finalresult = "";
             for (String subname : result.split("\n")[0].split("-")) {
+                if(subname.isEmpty()) continue;
                 subname = subname.trim();
                 String letter = ("" + subname.charAt(0)).toUpperCase();
                 subname = subname.toLowerCase();
