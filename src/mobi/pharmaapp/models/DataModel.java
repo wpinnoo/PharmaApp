@@ -16,7 +16,7 @@ public class DataModel {
 
     private DataModel() {
         pharmacies = new HashMap<String, Pharmacy>();
-        em_pharmacies= new ArrayList<Pharmacy>();
+        em_pharmacies = new ArrayList<Pharmacy>();
     }
 
     public static DataModel getInstance() {
@@ -26,8 +26,8 @@ public class DataModel {
     public HashMap<String, Pharmacy> getPharmacies() {
         return pharmacies;
     }
-    
-    public ArrayList<Pharmacy> getEmergencyPharmacies(){
+
+    public ArrayList<Pharmacy> getEmergencyPharmacies() {
         return em_pharmacies;
     }
 
@@ -38,12 +38,12 @@ public class DataModel {
     public void addPharmacy(Pharmacy a) {
         pharmacies.put(a.getId(), a);
     }
-    
-    public void addEmergencyPharmacy(Pharmacy a){
+
+    public void addEmergencyPharmacy(Pharmacy a) {
         em_pharmacies.add(a);
     }
-    
-    public void reset(){
+
+    public void reset() {
         pharmacies.clear();
         em_pharmacies.clear();
     }

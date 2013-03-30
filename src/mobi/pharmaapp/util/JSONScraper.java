@@ -31,7 +31,7 @@ import org.json.JSONObject;
 public class JSONScraper {
 
     public static int loadData(DataModel model, Activity parent) {
-        boolean download_data = parent.getSharedPreferences("PREFERENCE", parent.MODE_PRIVATE).getBoolean("download_data", true);
+        boolean download_data = parent.getSharedPreferences("PREFERENCE", Activity.MODE_PRIVATE).getBoolean("download_data", true);
         JSONArray arr = null;
         if (download_data) {
             if (!isNetworkAvailable(parent)) {
@@ -85,7 +85,7 @@ public class JSONScraper {
             StringBuilder builder = new StringBuilder();
             builder.append(reader.readLine()).append("\n");
 
-            String line = "";
+            String line;
             while ((line = reader.readLine()) != null) {
                 builder.append(line).append("\n");
             }
@@ -125,9 +125,8 @@ public class JSONScraper {
 
     protected static void fetchData(JSONArray arr, DataModel model) {
         for (int i = 0; i < arr.length(); i++) {
-            JSONObject obj = null;
             try {
-                obj = arr.getJSONObject(i);
+                JSONObject obj = arr.getJSONObject(i);
                 Pharmacy a = new Pharmacy(Float.parseFloat(obj.getString("lat")), Float.parseFloat(obj.getString("long")), Pharmacy.beautifyName(obj.getString("naam")), obj.getString("adres"), obj.getInt("distance"), obj.getString("id"), obj.getString("fid"), Integer.parseInt(obj.getString("postcode")), obj.getString("gemeente"));
                 model.addPharmacy(a);
             } catch (JSONException ex) {

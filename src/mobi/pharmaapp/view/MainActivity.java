@@ -11,7 +11,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Spinner;
 import com.google.analytics.tracking.android.EasyTracker;
 import mobi.pharmaapp.R;
 import mobi.pharmaapp.models.DataModel;
@@ -27,9 +26,9 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_layout);
-        
+
         new LoadData().execute();
-        
+
         UserModel.getInstance().setCurrentLocation(new Location((float) 51.1006070515313, (float) 3.76332831384537));
 
         Button btn_search = (Button) findViewById(R.id.btn_search);
@@ -69,19 +68,19 @@ public class MainActivity extends Activity {
             }
         });
     }
-    
+
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         EasyTracker.getInstance().activityStart(this);
     }
-    
+
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         EasyTracker.getInstance().activityStop(this);
     }
-    
+
     private static void showErrorDialogAndExit(final Activity parent) {
         AlertDialog.Builder alert = new AlertDialog.Builder(parent);
         alert.setTitle("No internet connection available!");
@@ -93,7 +92,7 @@ public class MainActivity extends Activity {
         });
         alert.show();
     }
-    
+
     private class LoadData extends AsyncTask<Void, Void, Integer> {
 
         private ProgressDialog dialog = new ProgressDialog(MainActivity.this);
@@ -112,7 +111,7 @@ public class MainActivity extends Activity {
         @Override
         protected void onPostExecute(Integer result) {
             dialog.dismiss();
-            if(result.intValue() == 1){
+            if (result.intValue() == 1) {
                 showErrorDialogAndExit(MainActivity.this);
             }
         }
