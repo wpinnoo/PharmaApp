@@ -15,16 +15,15 @@ public class Location {
         this.lat = lat;
         this.lon = lon;
     }
-    
+
     @Override
     public String toString() {
-        return "[" + lon + "," + lat + "]";
+        return "[" + lat + "," + lon + "]";
     }
 
     public float getLat() {
         return lat;
     }
-
 
     public float getLon() {
         return lon;

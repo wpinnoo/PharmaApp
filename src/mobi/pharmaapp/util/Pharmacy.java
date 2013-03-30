@@ -15,8 +15,8 @@ public class Pharmacy {
     private int zipcode;
     private String town;
     /*
-     * Telnr should always be of the format: xx xxx xxx xxx
-     * x being a digit
+     * Telnr should always be of the format: yyxx xxx yxx xxx
+     * x being a digit, y being an optional digit
      */
     private String telnr;
 
@@ -87,18 +87,13 @@ public class Pharmacy {
     public void setTelnr(String telnr) {
         this.telnr = telnr;
     }
-    
-    public static String beautifyTelnr(String telnr) {
-        if(telnr.length() != 9){
-            return telnr; // Should not happen
-        }
-        return telnr.substring(0, 2) + " " + telnr.substring(2,5) + " " + telnr.substring(5,7) + " " + telnr.substring(7);
-    }
 
     public static String beautifyName(String name) {
         String result = "";
         for (String subname : name.split("\n")[0].split(" ")) {
-            if(subname.isEmpty()) continue;
+            if (subname.isEmpty()) {
+                continue;
+            }
             char letter = subname.charAt(0);
             subname = subname.toLowerCase();
             result += letter + subname.substring(1, subname.length()) + " ";
@@ -106,14 +101,16 @@ public class Pharmacy {
         if (result.contains("-")) {
             String finalresult = "";
             for (String subname : result.split("\n")[0].split("-")) {
-                if(subname.isEmpty()) continue;
+                if (subname.isEmpty()) {
+                    continue;
+                }
                 subname = subname.trim();
                 String letter = ("" + subname.charAt(0)).toUpperCase();
                 subname = subname.toLowerCase();
                 finalresult += letter + subname.substring(1, subname.length()) + "-";
             }
             finalresult = finalresult.trim();
-            return finalresult.substring(0, finalresult.length()-1);
+            return finalresult.substring(0, finalresult.length() - 1);
         } else {
             return result.trim();
         }
