@@ -63,3 +63,5 @@ layout.graffle
 *database.properties*
 *.psd
 /nbandroid/
+
+*.json
