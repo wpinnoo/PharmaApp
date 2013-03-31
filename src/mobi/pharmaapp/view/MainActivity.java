@@ -1,7 +1,7 @@
 package mobi.pharmaapp.view;
 
 import mobi.pharmaapp.util.Location;
-import mobi.pharmaapp.util.JSONScraper;
+import mobi.pharmaapp.util.JSONPharmacyScraper;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -105,7 +105,7 @@ public class MainActivity extends Activity {
 
         @Override
         protected Integer doInBackground(Void... params) {
-            return JSONScraper.loadData(DataModel.getInstance(), MainActivity.this);
+            return JSONPharmacyScraper.loadData(DataModel.getInstance(), MainActivity.this);
         }
 
         @Override

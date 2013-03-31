@@ -9,6 +9,7 @@ API_PATH = './pharmacists/'
 
 def download_pharms(day):
 	page = get_pharm_page(SOURCE, day)
+	print page
 	pharms = parse_pharms_from_html(page)
 	if pharms:
 		dump_menu_to_file(API_PATH, pharms)
@@ -30,6 +31,7 @@ def parse_pharms_from_html(page):
 	#1 pharmacist on each row
 	rows = menuElement[0].xpathEval('.//tr')[0:]
 	pharmacists = {}
+	pharmacists['Apotheken']=[]
 	for row in rows:
 		for name in row.xpathEval('.//b')[0:]:
 			#Valid name
@@ -37,13 +39,23 @@ def parse_pharms_from_html(page):
 				name=name.content.strip().title()
 				open=row.xpathEval('.//span')[0:][0].content.strip()
 				m=re.search(r" {4}([^0-9]*) ([0-9]*) {4}([0-9]{4}) ([A-Z,\-]*)",row.content)
-				pharmacists[name]={'open': open}
-				pharmacists[name]['address']={'street' : m.group(1).strip()}
-				pharmacists[name]['address']['nr']= m.group(2).strip()
-				pharmacists[name]['address']['zip']= m.group(3).strip()
-				pharmacists[name]['address']['city']= m.group(4).strip().title()
-				m=re.search(r"([0-9]{5,})",row.content)
-				pharmacists[name]['number']=m.group(1)
+				n=re.search(r"([0-9]{5,})",row.content)
+				pharmacist={'name':name,
+							'open':open,
+							'street': m.group(1).strip(),
+							'nr': m.group(2).strip(),
+							'zip': m.group(3).strip(),
+							'city': m.group(4).strip().title(),
+							'tel': n.group(1)
+				}
+				pharmacists['Apotheken'].extend([pharmacist])
+				#pharmacists[name]={'open': open}
+				#pharmacists[name]['address']={'street' : m.group(1).strip()}
+				#pharmacists[name]['address']['nr']= m.group(2).strip()
+				#pharmacists[name]['address']['zip']= m.group(3).strip()
+				#pharmacists[name]['address']['city']= m.group(4).strip().title()
+				#m=re.search(r"([0-9]{5,})",row.content)
+				#pharmacists[name]['number']=m.group(1)
 	return pharmacists
 
 def dump_menu_to_file(path, pharms):
