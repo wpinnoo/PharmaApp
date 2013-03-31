@@ -11,7 +11,7 @@ def download_pharms(day):
 	page = get_pharm_page(SOURCE, day)
 	pharms = parse_pharms_from_html(page)
 	if pharms:
-		dump_menu_to_file(API_PATH, pharms)
+		dump_pharms_to_file(API_PATH, pharms)
 
 def get_pharm_page(url, day):
 	hour = '%02d%02d' % (day.hour, day.minute)
@@ -48,7 +48,7 @@ def parse_pharms_from_html(page):
 				pharmacists['Apotheken'].extend([pharmacist])
 	return pharmacists
 
-def dump_menu_to_file(path, pharms):
+def dump_pharms_to_file(path, pharms):
 	print('Writing object tree to file in JSON format')
 	if not os.path.isdir(path):
 		os.makedirs(path)
