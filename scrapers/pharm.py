@@ -49,13 +49,6 @@ def parse_pharms_from_html(page):
 							'tel': n.group(1)
 				}
 				pharmacists['Apotheken'].extend([pharmacist])
-				#pharmacists[name]={'open': open}
-				#pharmacists[name]['address']={'street' : m.group(1).strip()}
-				#pharmacists[name]['address']['nr']= m.group(2).strip()
-				#pharmacists[name]['address']['zip']= m.group(3).strip()
-				#pharmacists[name]['address']['city']= m.group(4).strip().title()
-				#m=re.search(r"([0-9]{5,})",row.content)
-				#pharmacists[name]['number']=m.group(1)
 	return pharmacists
 
 def dump_menu_to_file(path, pharms):
