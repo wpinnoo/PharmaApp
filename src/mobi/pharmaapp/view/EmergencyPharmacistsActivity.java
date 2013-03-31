@@ -19,7 +19,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import mobi.pharmaapp.R;
 import mobi.pharmaapp.models.DataModel;
-import mobi.pharmaapp.util.HTMLScraper;
+import mobi.pharmaapp.util.JSONEmergencyPharmacyScraper;
+
 import mobi.pharmaapp.util.Pharmacy;
 
 /**
@@ -38,8 +39,7 @@ public class EmergencyPharmacistsActivity extends ListActivity {
         setContentView(R.layout.emergency_layout);
         cal = new GregorianCalendar();
         datef = new SimpleDateFormat();
-        // Ask the user for this data (zipcode, city, etc.)
-        new LoadData(this, "9000", "Gent", "" + Calendar.DAY_OF_MONTH, "" + cal.get(Calendar.MONTH), "" + (cal.get(Calendar.YEAR) - 1900), "" + cal.get(Calendar.HOUR_OF_DAY) + cal.get(Calendar.MINUTE), "0", "0").execute();
+        new LoadData(this).execute();
         ((TextView) findViewById(R.id.date_field)).setText("Apothekers voor: " + datef.format(new Date()));
     }
 
@@ -82,18 +82,9 @@ public class EmergencyPharmacistsActivity extends ListActivity {
 
         private ProgressDialog dialog = new ProgressDialog(EmergencyPharmacistsActivity.this);
         private Activity parent;
-        private String zipcode, town, day, month, year, hour, lat, lng;
 
-        public LoadData(Activity parent, String zipcode, String town, String day, String month, String year, String hour, String lat, String lng) {
+        public LoadData(Activity parent) {
             this.parent = parent;
-            this.zipcode = zipcode;
-            this.town = town;
-            this.day = day;
-            this.month = month;
-            this.year = year;
-            this.hour = hour;
-            this.lat = lat;
-            this.lng = lng;
         }
 
         @Override
@@ -104,7 +95,7 @@ public class EmergencyPharmacistsActivity extends ListActivity {
 
         @Override
         protected Integer doInBackground(Void... params) {
-            return HTMLScraper.loadData(parent, zipcode, town, day, month, year, hour, lat, lng);
+            return JSONEmergencyPharmacyScraper.loadData(DataModel.getInstance(), parent);
         }
 
         @Override
