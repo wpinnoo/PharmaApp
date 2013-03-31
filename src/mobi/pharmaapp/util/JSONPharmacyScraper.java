@@ -33,7 +33,7 @@ public class JSONPharmacyScraper {
     public static int loadData(DataModel model, Activity parent) {
         boolean download_data = parent.getSharedPreferences("PREFERENCE", Activity.MODE_PRIVATE).getBoolean("download_data", true);
         JSONArray arr = null;
-        if (download_data) {
+        if (true) {
             if (!isNetworkAvailable(parent)) {
                 return 1;
             }
