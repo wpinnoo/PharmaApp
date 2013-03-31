@@ -81,7 +81,7 @@ public class JSONEmergencyPharmacyScraper {
     }
 
     protected static JSONArray downloadData(Activity parent) {
-        InputStream inp = getStream("http://data.pharmaapp.mobi/pharmacists/pharms.json");
+        InputStream inp = getStream("http://data.pharmaapp.mobi/em_pharms.json");
         String result = "";
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inp, "iso-8859-1"), 8);
