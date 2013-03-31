@@ -33,17 +33,16 @@ import org.json.JSONObject;
 public class JSONEmergencyPharmacyScraper {
 
     public static int loadData(DataModel model, Activity parent) {
-        boolean download_data = parent.getSharedPreferences("PREFERENCE", Activity.MODE_PRIVATE).getBoolean("download_data", true);
+        boolean download_data = parent.getSharedPreferences("PREFERENCE", Activity.MODE_PRIVATE).getBoolean("download_em_pharm_data", true);
         JSONArray emergencyArr = null;
-        if (true) {
+        if (download_data) {
             if (!isNetworkAvailable(parent)) {
-                
                 return 1;
             }
             emergencyArr = downloadData(parent);
         } else {
             try {
-                BufferedReader br = new BufferedReader(new FileReader(new File(new File(parent.getCacheDir(), "") + "JSONcache.srl")));
+                BufferedReader br = new BufferedReader(new FileReader(new File(new File(parent.getCacheDir(), "") + "JSONcache_em_pharm.srl")));
                 String line, content = "";
                 while ((line = br.readLine()) != null) {
                     content += line;
@@ -109,12 +108,12 @@ public class JSONEmergencyPharmacyScraper {
             Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                BufferedWriter out = new BufferedWriter(new FileWriter(new File(parent.getCacheDir(), "") + "JSONcache.srl"));
+                BufferedWriter out = new BufferedWriter(new FileWriter(new File(parent.getCacheDir(), "") + "JSONcache_em_pharm.srl"));
                 out.write(arr.toString());
                 out.close();
                 parent.getSharedPreferences("PREFERENCE", parent.MODE_PRIVATE)
                         .edit()
-                        .putBoolean("download_data", false)
+                        .putBoolean("download_em_pharm_data", false)
                         .commit();
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, ex);
