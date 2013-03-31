@@ -9,7 +9,6 @@ API_PATH = './pharmacists/'
 
 def download_pharms(day):
 	page = get_pharm_page(SOURCE, day)
-	print page
 	pharms = parse_pharms_from_html(page)
 	if pharms:
 		dump_menu_to_file(API_PATH, pharms)
