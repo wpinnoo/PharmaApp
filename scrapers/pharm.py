@@ -16,8 +16,6 @@ def download_pharms(day):
 
 def get_pharm_page(url, day):
 	hour = '%02d%02d' % (day.hour, day.minute)
-	#TO TEST
-	hour = '2200'
 	f = urllib.urlopen(url % (day.day, day.month, day.year, hour))
 	return f.read()
 
