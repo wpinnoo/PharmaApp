@@ -52,7 +52,7 @@ def dump_pharms_to_file(path, pharms):
 	print('Writing object tree to file in JSON format')
 	if not os.path.isdir(path):
 		os.makedirs(path)
-	with open('%s/pharms.json' % (path), 'w') as f:
+	with open('%s/em_pharms.json' % (path), 'w') as f:
 		json.dump(pharms, f, sort_keys=True)
 
 if __name__ == "__main__":
