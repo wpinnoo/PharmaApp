@@ -66,7 +66,7 @@ public class SearchActivity extends ListActivity {
         adapter = new PharmacyAdapter(this, R.layout.list_item, list);
         setListAdapter(adapter);
     }
-    private TextWatcher filterTextWatcher = new TextWatcher() {
+    private final TextWatcher filterTextWatcher = new TextWatcher() {
         public void afterTextChanged(Editable s) {
         }
 
