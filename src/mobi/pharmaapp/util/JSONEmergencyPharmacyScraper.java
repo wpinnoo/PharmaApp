@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StreamCorruptedException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Date;
@@ -77,21 +78,17 @@ public class JSONEmergencyPharmacyScraper {
         return activeNetworkInfo != null;
     }
 
-    protected static InputStream getStream(String full_url) {
-        try {
-            URL url = new URL(full_url);
-            URLConnection urlConnection = url.openConnection();
-            urlConnection.setConnectTimeout(1000);
-            return urlConnection.getInputStream();
-        } catch (Exception ex) {
-            return null;
-        }
+    protected static InputStream getStream(String full_url) throws IOException {
+        URL url = new URL(full_url);
+        URLConnection urlConnection = url.openConnection();
+        urlConnection.setConnectTimeout(1000);
+        return urlConnection.getInputStream();
     }
 
     protected static JSONArray downloadData() {
-        InputStream inp = getStream("http://data.pharmaapp.mobi/em_pharms.json");
         String result = "";
         try {
+            InputStream inp = getStream("http://data.pharmaapp.mobi/em_pharms.json");
             BufferedReader reader = new BufferedReader(new InputStreamReader(inp, "iso-8859-1"), 8);
             StringBuilder builder = new StringBuilder();
             builder.append(reader.readLine()).append("\n");
@@ -104,8 +101,10 @@ public class JSONEmergencyPharmacyScraper {
             result = builder.toString();
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         } catch (IOException e) {
             Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, e);
+            return null;
         }
         JSONArray arr = null;
         try {
@@ -135,7 +134,7 @@ public class JSONEmergencyPharmacyScraper {
     }
 
     protected static int fetchData(JSONArray arr) {
-        if(arr == null){
+        if (arr == null) {
             return 1;
         }
         DataModel.getInstance().resetEmergencyPharmacists();
