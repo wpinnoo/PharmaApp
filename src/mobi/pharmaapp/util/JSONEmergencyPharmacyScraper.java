@@ -32,34 +32,41 @@ import org.json.JSONObject;
  */
 public class JSONEmergencyPharmacyScraper {
 
-    public static int loadData(DataModel model, Activity parent) {
-        boolean download_data = parent.getSharedPreferences("PREFERENCE", Activity.MODE_PRIVATE).getBoolean("download_em_pharm_data", true);
-        JSONArray emergencyArr = null;
-        if (download_data) {
-            if (!isNetworkAvailable(parent)) {
-                return 1;
+    public static boolean needsUpdate(Activity parent) {
+        long lastUpdate = parent.getSharedPreferences("PREFERENCE", Activity.MODE_PRIVATE).getLong("date_em_pharm_data", 0);
+        return System.currentTimeMillis() - lastUpdate > 30 * 60 * 1000;
+    }
+
+    public static JSONArray readCache(Activity parent) {
+        JSONArray arr = null;
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(new File(new File(parent.getCacheDir(), "") + "JSONcache_em_pharm.srl")));
+            String line, content = "";
+            while ((line = br.readLine()) != null) {
+                content += line;
             }
-            emergencyArr = downloadData(parent);
-        } else {
-            try {
-                BufferedReader br = new BufferedReader(new FileReader(new File(new File(parent.getCacheDir(), "") + "JSONcache_em_pharm.srl")));
-                String line, content = "";
-                while ((line = br.readLine()) != null) {
-                    content += line;
-                }
-                emergencyArr = new JSONArray(content);
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (StreamCorruptedException ex) {
-                Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (JSONException ex) {
-                Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            arr = new JSONArray(content);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (StreamCorruptedException ex) {
+            Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            return arr;
         }
-        fetchEmergencyData(emergencyArr, model);
-        return 0;
+    }
+
+    public static int loadData(DataModel model, Activity parent) {
+        JSONArray arr = null;
+        if (needsUpdate(parent) && isNetworkAvailable(parent)) {
+            arr = downloadData(parent);
+        } else {
+            arr = readCache(parent);
+        }
+        return fetchData(arr, model);
     }
 
     private static boolean isNetworkAvailable(Activity parent) {
@@ -113,7 +120,7 @@ public class JSONEmergencyPharmacyScraper {
                 out.close();
                 parent.getSharedPreferences("PREFERENCE", parent.MODE_PRIVATE)
                         .edit()
-                        .putBoolean("download_em_pharm_data", false)
+                        .putLong("date_em_pharm_data", System.currentTimeMillis())
                         .commit();
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, ex);
@@ -125,12 +132,15 @@ public class JSONEmergencyPharmacyScraper {
         }
     }
 
-    protected static void fetchEmergencyData(JSONArray arr, DataModel model) {
+    protected static int fetchData(JSONArray arr, DataModel model) {
+        if(arr == null){
+            return 1;
+        }
         for (int i = 0; i < arr.length(); i++) {
             try {
                 JSONObject obj = arr.getJSONObject(i);
                 String address = obj.getString("street") + " " + obj.getString("nr");
-                Pharmacy a = new Pharmacy((float)0,(float)0,obj.getString("name"),address,0,"0","0",Integer.parseInt(obj.getString("zip")),obj.getString("city"), obj.getString("tel"));
+                Pharmacy a = new Pharmacy((float) 0, (float) 0, obj.getString("name"), address, 0, "0", "0", Integer.parseInt(obj.getString("zip")), obj.getString("city"), obj.getString("tel"));
                 model.addEmergencyPharmacy(a);
             } catch (JSONException ex) {
                 Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, ex);
@@ -138,5 +148,6 @@ public class JSONEmergencyPharmacyScraper {
                 Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, e);
             }
         }
+        return 0;
     }
 }

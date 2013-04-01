@@ -84,10 +84,10 @@ public class MainActivity extends Activity {
     private static void showErrorDialogAndExit(final Activity parent) {
         AlertDialog.Builder alert = new AlertDialog.Builder(parent);
         alert.setTitle("No internet connection available!");
-        alert.setMessage("You need an internet connection the first time you run this app. The app will close now.");
+        alert.setMessage("You need an internet connection to refresh to list of pharmacists.");
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                parent.finish();
+                
             }
         });
         alert.show();
