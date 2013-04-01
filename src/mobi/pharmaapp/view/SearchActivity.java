@@ -58,9 +58,8 @@ public class SearchActivity extends ListActivity {
                 InfoPopup.showPopup(SearchActivity.this, (Pharmacy) (lv.getItemAtPosition(i)));
             }
         });
-        
-        ((Button) findViewById(R.id.clear_search)).setOnClickListener(new OnClickListener() {
 
+        ((Button) findViewById(R.id.clear_search)).setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 ((EditText) findViewById(R.id.search_box)).setText("");
             }

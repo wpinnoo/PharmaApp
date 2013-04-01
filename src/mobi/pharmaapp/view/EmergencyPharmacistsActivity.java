@@ -1,10 +1,6 @@
 package mobi.pharmaapp.view;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,10 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.google.analytics.tracking.android.EasyTracker;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import mobi.pharmaapp.R;
 import mobi.pharmaapp.models.DataModel;
 
@@ -29,8 +22,6 @@ import mobi.pharmaapp.util.Pharmacy;
  */
 public class EmergencyPharmacistsActivity extends ListActivity {
 
-    private Calendar cal;
-    private DateFormat datef;
     private PharmacyAdapter adapter = null;
 
     @Override
@@ -38,8 +29,6 @@ public class EmergencyPharmacistsActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.emergency_layout);
         DataModel.getInstance().setEmergencyPharmacistsContainerIfNull(this);
-        cal = new GregorianCalendar();
-        datef = new SimpleDateFormat();
         new LoadEmergencyDataDialog(this) {
             @Override
             protected void onPostExecute(Integer result) {
@@ -77,17 +66,6 @@ public class EmergencyPharmacistsActivity extends ListActivity {
         EasyTracker.getInstance().activityStop(this);
     }
 
-    private static void showErrorDialogAndExit(final Activity parent) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(parent);
-        alert.setTitle("No internet connection available!");
-        alert.setMessage("You need an internet connection to refresh the list of emergency pharmacists.");
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-            }
-        });
-        alert.show();
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -97,7 +75,6 @@ public class EmergencyPharmacistsActivity extends ListActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
         switch (item.getItemId()) {
             case R.id.refresh:
                 new LoadEmergencyDataDialog(this, true) {

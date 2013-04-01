@@ -58,7 +58,7 @@ public class JSONPharmacyScraper {
     }
 
     public static int loadData(boolean force) {
-        JSONArray arr = null;
+        JSONArray arr;
         if (force || needsUpdate() && isNetworkAvailable()) {
             arr = downloadData();
         } else {
@@ -114,7 +114,7 @@ public class JSONPharmacyScraper {
                 BufferedWriter out = new BufferedWriter(new FileWriter(new File(DataModel.getInstance().getPharmaciesContainer().getCacheDir(), "") + "JSONcache_pharms.srl"));
                 out.write(arr.toString());
                 out.close();
-                DataModel.getInstance().getPharmaciesContainer().getSharedPreferences("PREFERENCE", DataModel.getInstance().getPharmaciesContainer().MODE_PRIVATE)
+                DataModel.getInstance().getPharmaciesContainer().getSharedPreferences("PREFERENCE", Activity.MODE_PRIVATE)
                         .edit()
                         .putLong("date_pharm_data", System.currentTimeMillis())
                         .commit();

@@ -12,6 +12,8 @@ public class UserModel {
     private static final UserModel userModel = new UserModel();
 
     private UserModel() {
+        //TODO: DELETE CONSTANT VALUE
+        curLoc = new Location((float) 51.1006070515313, (float) 3.76332831384537);
     }
 
     public static UserModel getInstance() {
