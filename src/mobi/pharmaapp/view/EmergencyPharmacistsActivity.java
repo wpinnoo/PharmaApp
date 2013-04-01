@@ -69,10 +69,10 @@ public class EmergencyPharmacistsActivity extends ListActivity {
     private static void showErrorDialogAndExit(final Activity parent) {
         AlertDialog.Builder alert = new AlertDialog.Builder(parent);
         alert.setTitle("No internet connection available!");
-        alert.setMessage("You need an internet connection to load the emergency pharmacists.");
+        alert.setMessage("You need an internet connection to refresh the list of emergency pharmacists.");
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                parent.finish();
+                
             }
         });
         alert.show();
