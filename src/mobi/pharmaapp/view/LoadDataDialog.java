@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-import mobi.pharmaapp.models.DataModel;
 import mobi.pharmaapp.util.JSONPharmacyScraper;
 
 /**
@@ -16,10 +15,16 @@ public class LoadDataDialog extends AsyncTask<Void, Void, Integer> {
 
     private final Activity parent;
     protected ProgressDialog dialog;
+    private boolean force;
 
     public LoadDataDialog(Activity parent) {
+        this(parent, false);
+    }
+
+    public LoadDataDialog(Activity parent, boolean force) {
         this.parent = parent;
         dialog = new ProgressDialog(parent);
+        this.force = force;
     }
 
     @Override
@@ -30,7 +35,7 @@ public class LoadDataDialog extends AsyncTask<Void, Void, Integer> {
 
     @Override
     protected Integer doInBackground(Void... params) {
-        return JSONPharmacyScraper.loadData();
+        return JSONPharmacyScraper.loadData(force);
     }
 
     @Override

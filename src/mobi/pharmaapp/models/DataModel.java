@@ -23,32 +23,32 @@ public class DataModel {
         pharmacies = new HashMap<String, Pharmacy>();
         em_pharmacies = new ArrayList<Pharmacy>();
     }
-    
-    public Date getLastEmPharmsUpdate(){
+
+    public Date getLastEmPharmsUpdate() {
         return lastUpdateEmergencyPharmacists;
     }
-    
-    public void setLastEmPharmsUpdate(Date date){
+
+    public void setLastEmPharmsUpdate(Date date) {
         this.lastUpdateEmergencyPharmacists = date;
     }
-    
-    public void setPharmacistsContainerIfNull(Activity activity){
-        if(pharmacistsContainer == null){
+
+    public void setPharmacistsContainerIfNull(Activity activity) {
+        if (pharmacistsContainer == null) {
             pharmacistsContainer = activity;
         }
     }
-    
-    public Activity getPharmaciesContainer(){
+
+    public Activity getPharmaciesContainer() {
         return pharmacistsContainer;
     }
-    
-    public void setEmergencyPharmacistsContainerIfNull(Activity activity){
-        if(em_pharmacistsContainer == null){
+
+    public void setEmergencyPharmacistsContainerIfNull(Activity activity) {
+        if (em_pharmacistsContainer == null) {
             em_pharmacistsContainer = activity;
         }
     }
-    
-    public Activity getEmergencyPharmaciesContainer(){
+
+    public Activity getEmergencyPharmaciesContainer() {
         return em_pharmacistsContainer;
     }
 
@@ -79,8 +79,8 @@ public class DataModel {
     public void resetEmergencyPharmacists() {
         em_pharmacies.clear();
     }
-    
-    public void resetPharmacists(){
+
+    public void resetPharmacists() {
         pharmacies.clear();
     }
 }

@@ -20,7 +20,6 @@ import mobi.pharmaapp.util.Pharmacy;
 import mobi.pharmaapp.util.PharmacyAlphComparator;
 import java.util.ArrayList;
 import java.util.Collections;
-import mobi.pharmaapp.util.JSONPharmacyScraper;
 
 /**
  *
@@ -38,16 +37,16 @@ public class SearchActivity extends ListActivity {
         setContentView(R.layout.search_layout);
         DataModel.getInstance().setPharmacistsContainerIfNull(this);
         new LoadDataDialog(this) {
-                    @Override
-                    protected void onPostExecute(Integer result) {
-                        this.dialog.dismiss();
-                        if (result.intValue() == 1) {
-                            this.showErrorDialogAndExit();
-                        } else {
-                            fillList();
-                        }
-                    }
-                }.execute();
+            @Override
+            protected void onPostExecute(Integer result) {
+                this.dialog.dismiss();
+                if (result.intValue() == 1) {
+                    this.showErrorDialogAndExit();
+                } else {
+                    fillList();
+                }
+            }
+        }.execute();
 
         filterText = (EditText) findViewById(R.id.search_box);
         filterText.addTextChangedListener(filterTextWatcher);
@@ -104,7 +103,7 @@ public class SearchActivity extends ListActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.refresh:
-                new LoadDataDialog(this) {
+                new LoadDataDialog(this, true) {
                     @Override
                     protected void onPostExecute(Integer result) {
                         this.dialog.dismiss();

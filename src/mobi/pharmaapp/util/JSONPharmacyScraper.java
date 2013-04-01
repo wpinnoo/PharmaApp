@@ -57,9 +57,9 @@ public class JSONPharmacyScraper {
         }
     }
 
-    public static int loadData() {
+    public static int loadData(boolean force) {
         JSONArray arr = null;
-        if (needsUpdate() && isNetworkAvailable()) {
+        if (force || needsUpdate() && isNetworkAvailable()) {
             arr = downloadData();
         } else {
             arr = readCache();

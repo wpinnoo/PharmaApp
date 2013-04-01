@@ -5,9 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-import mobi.pharmaapp.models.DataModel;
 import mobi.pharmaapp.util.JSONEmergencyPharmacyScraper;
-import mobi.pharmaapp.util.JSONPharmacyScraper;
 
 /**
  *
@@ -19,6 +17,10 @@ public class LoadEmergencyDataDialog extends AsyncTask<Void, Void, Integer> {
     protected ProgressDialog dialog;
     private boolean force;
 
+    public LoadEmergencyDataDialog(Activity parent){
+        this(parent, false);
+    }
+    
     public LoadEmergencyDataDialog(Activity parent, boolean force) {
         this.parent = parent;
         dialog = new ProgressDialog(parent);

@@ -1,13 +1,8 @@
 package mobi.pharmaapp.view;
 
 import mobi.pharmaapp.util.Location;
-import mobi.pharmaapp.util.JSONPharmacyScraper;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
