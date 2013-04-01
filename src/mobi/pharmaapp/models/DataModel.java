@@ -2,9 +2,12 @@ package mobi.pharmaapp.models;
 
 import android.app.Activity;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import mobi.pharmaapp.util.Pharmacy;
 import java.util.HashMap;
+import mobi.pharmaapp.util.PharmacyAlphComparator;
+import mobi.pharmaapp.util.PharmacyComparator;
 
 /**
  *
@@ -12,6 +15,10 @@ import java.util.HashMap;
  */
 public class DataModel {
 
+    public enum LIST_TYPE {
+        NORMAL, SORT_ON_DISTANCE, SORT_ALPH;
+    }
+    
     private HashMap<String, Pharmacy> pharmacies;
     private ArrayList<Pharmacy> em_pharmacies;
     private static final DataModel model = new DataModel();
@@ -60,8 +67,24 @@ public class DataModel {
         return pharmacies;
     }
 
-    public ArrayList<Pharmacy> getEmergencyPharmacies() {
-        return em_pharmacies;
+    public ArrayList<Pharmacy> getEmergencyPharmacies(LIST_TYPE type) {
+        ArrayList<Pharmacy> sorted;
+        switch(type){
+            case NORMAL:
+                return em_pharmacies;
+            case SORT_ALPH:
+                sorted = new ArrayList<Pharmacy>();
+                sorted.addAll(em_pharmacies);
+                Collections.sort(sorted, new PharmacyComparator());
+                return sorted;
+            case SORT_ON_DISTANCE:
+                sorted = new ArrayList<Pharmacy>();
+                sorted.addAll(em_pharmacies);
+                Collections.sort(sorted, new PharmacyAlphComparator());
+                return sorted;
+            default:
+                return em_pharmacies;
+        }
     }
 
     public Pharmacy getPharmacy(String id) {
