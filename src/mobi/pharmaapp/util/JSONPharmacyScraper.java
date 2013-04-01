@@ -2,8 +2,13 @@ package mobi.pharmaapp.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Spinner;
 import mobi.pharmaapp.models.DataModel;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -30,12 +35,12 @@ import org.json.JSONObject;
  */
 public class JSONPharmacyScraper {
 
-    public static boolean needsUpdate(Activity parent) {
+    private static boolean needsUpdate(Activity parent) {
         long lastUpdate = parent.getSharedPreferences("PREFERENCE", Activity.MODE_PRIVATE).getLong("date_pharm_data", 0);
         return System.currentTimeMillis() - lastUpdate > 7 * 24 * 60 * 60 * 1000;
     }
 
-    public static JSONArray readCache(Activity parent) {
+    private static JSONArray readCache(Activity parent) {
         JSONArray arr = null;
         try {
             BufferedReader br = new BufferedReader(new FileReader(new File(new File(parent.getCacheDir(), "") + "JSONcache_pharms.srl")));

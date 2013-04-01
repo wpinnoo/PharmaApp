@@ -2,5 +2,6 @@
 <resources>
 
     <string name="app_name">PharmaApp</string>
+    <string name="refresh">Refresh</string>
 
 </resources>
