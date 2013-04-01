@@ -41,7 +41,6 @@ public class EmergencyPharmacistsActivity extends ListActivity {
         cal = new GregorianCalendar();
         datef = new SimpleDateFormat();
         new LoadEmergencyDataDialog(this).execute();
-        ((TextView) findViewById(R.id.date_field)).setText("Apothekers voor: " + datef.format(new Date()));
         new LoadEmergencyDataDialog(this) {
             @Override
             protected void onPostExecute(Integer result) {
@@ -50,6 +49,7 @@ public class EmergencyPharmacistsActivity extends ListActivity {
                     this.showErrorDialogAndExit();
                 } else {
                     setListContent();
+                    ((TextView) findViewById(R.id.date_field)).setText("Apothekers voor: " + new SimpleDateFormat().format(DataModel.getInstance().getLastEmPharmsUpdate()));
                 }
             }
         }.execute();

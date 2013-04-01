@@ -2,6 +2,7 @@ package mobi.pharmaapp.models;
 
 import android.app.Activity;
 import java.util.ArrayList;
+import java.util.Date;
 import mobi.pharmaapp.util.Pharmacy;
 import java.util.HashMap;
 
@@ -16,10 +17,19 @@ public class DataModel {
     private static final DataModel model = new DataModel();
     private Activity pharmacistsContainer;
     private Activity em_pharmacistsContainer;
+    private Date lastUpdateEmergencyPharmacists;
 
     private DataModel() {
         pharmacies = new HashMap<String, Pharmacy>();
         em_pharmacies = new ArrayList<Pharmacy>();
+    }
+    
+    public Date getLastEmPharmsUpdate(){
+        return lastUpdateEmergencyPharmacists;
+    }
+    
+    public void setLastEmPharmsUpdate(Date date){
+        this.lastUpdateEmergencyPharmacists = date;
     }
     
     public void setPharmacistsContainerIfNull(Activity activity){
