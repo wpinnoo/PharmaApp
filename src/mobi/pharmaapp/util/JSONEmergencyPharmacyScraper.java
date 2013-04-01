@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 import mobi.pharmaapp.models.DataModel;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -19,6 +18,7 @@ import java.io.StreamCorruptedException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static mobi.pharmaapp.util.JSONPharmacyScraper.downloadData;
@@ -66,6 +66,8 @@ public class JSONEmergencyPharmacyScraper {
         } else {
             arr = readCache();
         }
+        long lastUpdate = DataModel.getInstance().getEmergencyPharmaciesContainer().getSharedPreferences("PREFERENCE", Activity.MODE_PRIVATE).getLong("date_em_pharm_data", 0);
+        DataModel.getInstance().setLastEmPharmsUpdate(new Date(lastUpdate));
         return fetchData(arr);
     }
 
