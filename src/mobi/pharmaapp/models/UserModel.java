@@ -1,6 +1,7 @@
 package mobi.pharmaapp.models;
 
 import com.google.android.maps.GeoPoint;
+import mobi.pharmaapp.util.LocalConstants;
 import mobi.pharmaapp.util.Location;
 
 /**
@@ -13,7 +14,7 @@ public class UserModel {
     private static final UserModel userModel = new UserModel();
 
     private UserModel() {
-        curLoc = new GeoPoint(51100607, 3763328);
+        curLoc = LocalConstants.INITIAL_USER_LOCATION;
     }
 
     public static UserModel getInstance() {

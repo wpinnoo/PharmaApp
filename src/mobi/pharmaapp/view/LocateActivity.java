@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import mobi.pharmaapp.models.UserModel;
+import mobi.pharmaapp.util.LocalConstants;
 
 /**
  *
@@ -108,13 +109,15 @@ public class LocateActivity extends MapActivity {
                         (int) (location.getLatitude() * 1E6), (int) (location.getLongitude() * 1E6));
 
                 UserModel.getInstance().setCurrentLocation(curLoc);
-                
-                mapView.getController().animateTo(curLoc);
-                mapView.getController().setZoom(15);
+
+                if (curLoc != LocalConstants.INITIAL_USER_LOCATION) {
+                    mapView.getController().animateTo(curLoc);
+                    mapView.getController().setZoom(15);
+                }
 
                 OverlayItem overlayitem = new OverlayItem(curLoc, "Me", "My current location");
                 itemizedoverlay.addOverlay(overlayitem);
-                if(previousLoc != null) {
+                if (previousLoc != null) {
                     mapOverlays.remove(previousLoc);
                 }
                 mapOverlays.add(itemizedoverlay);
