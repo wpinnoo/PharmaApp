@@ -26,9 +26,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_layout);
-
-        new LoadDataDialog(this).execute();
-
+        DataModel.getInstance().setPharmacistsContainerIfNull(this);
         UserModel.getInstance().setCurrentLocation(new Location((float) 51.1006070515313, (float) 3.76332831384537));
 
         Button btn_search = (Button) findViewById(R.id.btn_search);

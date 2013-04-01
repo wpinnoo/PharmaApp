@@ -1,5 +1,6 @@
 package mobi.pharmaapp.models;
 
+import android.app.Activity;
 import java.util.ArrayList;
 import mobi.pharmaapp.util.Pharmacy;
 import java.util.HashMap;
@@ -13,10 +14,32 @@ public class DataModel {
     private HashMap<String, Pharmacy> pharmacies;
     private ArrayList<Pharmacy> em_pharmacies;
     private static final DataModel model = new DataModel();
+    private Activity pharmacistsContainer;
+    private Activity em_pharmacistsContainer;
 
     private DataModel() {
         pharmacies = new HashMap<String, Pharmacy>();
         em_pharmacies = new ArrayList<Pharmacy>();
+    }
+    
+    public void setPharmacistsContainerIfNull(Activity activity){
+        if(pharmacistsContainer == null){
+            pharmacistsContainer = activity;
+        }
+    }
+    
+    public Activity getPharmaciesContainer(){
+        return pharmacistsContainer;
+    }
+    
+    public void setEmergencyPharmacistsContainerIfNull(Activity activity){
+        if(em_pharmacistsContainer == null){
+            em_pharmacistsContainer = activity;
+        }
+    }
+    
+    public Activity getEmergencyPharmaciesContainer(){
+        return em_pharmacistsContainer;
     }
 
     public static DataModel getInstance() {

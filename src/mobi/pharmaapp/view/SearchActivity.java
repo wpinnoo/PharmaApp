@@ -36,8 +36,18 @@ public class SearchActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_layout);
-
-        fillList();
+        DataModel.getInstance().setPharmacistsContainerIfNull(this);
+        new LoadDataDialog(this) {
+                    @Override
+                    protected void onPostExecute(Integer result) {
+                        this.dialog.dismiss();
+                        if (result.intValue() == 1) {
+                            this.showErrorDialogAndExit();
+                        } else {
+                            fillList();
+                        }
+                    }
+                }.execute();
 
         filterText = (EditText) findViewById(R.id.search_box);
         filterText.addTextChangedListener(filterTextWatcher);
@@ -94,8 +104,17 @@ public class SearchActivity extends ListActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.refresh:
-                new LoadDataDialog(this).execute();
-                fillList();
+                new LoadDataDialog(this) {
+                    @Override
+                    protected void onPostExecute(Integer result) {
+                        this.dialog.dismiss();
+                        if (result.intValue() == 1) {
+                            this.showErrorDialogAndExit();
+                        } else {
+                            fillList();
+                        }
+                    }
+                }.execute();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

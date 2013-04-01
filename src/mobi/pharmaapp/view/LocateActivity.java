@@ -27,14 +27,30 @@ public class LocateActivity extends MapActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nearby_layout);
-
+        DataModel.getInstance().setPharmacistsContainerIfNull(this);
+        
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.getController().setZoom(12);
 
         mapView.setBuiltInZoomControls(true);
 
+        new LoadDataDialog(this) {
+            @Override
+            protected void onPostExecute(Integer result) {
+                this.dialog.dismiss();
+                if (result.intValue() == 1) {
+                    this.showErrorDialogAndExit();
+                } else {
+                    addOverlays();
+                }
+            }
+        }.execute();
+    }
+
+    private void addOverlays() {
         List<Overlay> mapOverlays = mapView.getOverlays();
         Drawable drawable = this.getResources().getDrawable(R.drawable.loc);
+
 
         MapOverlayItem itemizedoverlay = new MapOverlayItem(drawable, this);
 
