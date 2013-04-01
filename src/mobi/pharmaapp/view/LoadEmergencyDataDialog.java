@@ -17,10 +17,12 @@ public class LoadEmergencyDataDialog extends AsyncTask<Void, Void, Integer> {
 
     private final Activity parent;
     protected ProgressDialog dialog;
+    private boolean force;
 
-    public LoadEmergencyDataDialog(Activity parent) {
+    public LoadEmergencyDataDialog(Activity parent, boolean force) {
         this.parent = parent;
         dialog = new ProgressDialog(parent);
+        this.force = force;
     }
 
     @Override
@@ -31,7 +33,7 @@ public class LoadEmergencyDataDialog extends AsyncTask<Void, Void, Integer> {
 
     @Override
     protected Integer doInBackground(Void... params) {
-        return JSONEmergencyPharmacyScraper.loadData();
+        return JSONEmergencyPharmacyScraper.loadData(force);
     }
 
     @Override

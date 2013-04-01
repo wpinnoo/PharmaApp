@@ -5,8 +5,12 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -40,8 +44,7 @@ public class EmergencyPharmacistsActivity extends ListActivity {
         DataModel.getInstance().setEmergencyPharmacistsContainerIfNull(this);
         cal = new GregorianCalendar();
         datef = new SimpleDateFormat();
-        new LoadEmergencyDataDialog(this).execute();
-        new LoadEmergencyDataDialog(this) {
+        new LoadEmergencyDataDialog(this, false) {
             @Override
             protected void onPostExecute(Integer result) {
                 this.dialog.dismiss();
@@ -87,5 +90,35 @@ public class EmergencyPharmacistsActivity extends ListActivity {
             }
         });
         alert.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.refresh_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.refresh:
+                new LoadEmergencyDataDialog(this, true) {
+                    @Override
+                    protected void onPostExecute(Integer result) {
+                        this.dialog.dismiss();
+                        if (result.intValue() == 1) {
+                            this.showErrorDialogAndExit();
+                        } else {
+                            setListContent();
+                            ((TextView) findViewById(R.id.date_field)).setText("Apothekers voor: " + new SimpleDateFormat().format(DataModel.getInstance().getLastEmPharmsUpdate()));
+                        }
+                    }
+                }.execute();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
