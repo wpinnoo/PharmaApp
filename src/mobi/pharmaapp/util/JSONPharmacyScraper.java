@@ -2,13 +2,8 @@ package mobi.pharmaapp.util;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.widget.Spinner;
 import mobi.pharmaapp.models.DataModel;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -35,15 +30,15 @@ import org.json.JSONObject;
  */
 public class JSONPharmacyScraper {
 
-    private static boolean needsUpdate(Activity parent) {
-        long lastUpdate = parent.getSharedPreferences("PREFERENCE", Activity.MODE_PRIVATE).getLong("date_pharm_data", 0);
+    private static boolean needsUpdate() {
+        long lastUpdate = DataModel.getInstance().getPharmaciesContainer().getSharedPreferences("PREFERENCE", Activity.MODE_PRIVATE).getLong("date_pharm_data", 0);
         return System.currentTimeMillis() - lastUpdate > 7 * 24 * 60 * 60 * 1000;
     }
 
-    private static JSONArray readCache(Activity parent) {
+    private static JSONArray readCache() {
         JSONArray arr = null;
         try {
-            BufferedReader br = new BufferedReader(new FileReader(new File(new File(parent.getCacheDir(), "") + "JSONcache_pharms.srl")));
+            BufferedReader br = new BufferedReader(new FileReader(new File(new File(DataModel.getInstance().getPharmaciesContainer().getCacheDir(), "") + "JSONcache_pharms.srl")));
             String line, content = "";
             while ((line = br.readLine()) != null) {
                 content += line;
@@ -62,18 +57,18 @@ public class JSONPharmacyScraper {
         }
     }
 
-    public static int loadData(DataModel model, Activity parent) {
+    public static int loadData() {
         JSONArray arr = null;
-        if (needsUpdate(parent) && isNetworkAvailable(parent)) {
-            arr = downloadData(parent);
+        if (needsUpdate() && isNetworkAvailable()) {
+            arr = downloadData();
         } else {
-            arr = readCache(parent);
+            arr = readCache();
         }
-        return fetchData(arr, model);
+        return fetchData(arr);
     }
 
-    private static boolean isNetworkAvailable(Activity parent) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) parent.getSystemService(Context.CONNECTIVITY_SERVICE);
+    private static boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) DataModel.getInstance().getPharmaciesContainer().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
     }
@@ -89,7 +84,7 @@ public class JSONPharmacyScraper {
         }
     }
 
-    protected static JSONArray downloadData(Activity parent) {
+    protected static JSONArray downloadData() {
         InputStream inp = getStream("http://datatank.gent.be/Gezondheid/Apotheken.json");
         String result = "";
         try {
@@ -118,10 +113,10 @@ public class JSONPharmacyScraper {
             Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                BufferedWriter out = new BufferedWriter(new FileWriter(new File(parent.getCacheDir(), "") + "JSONcache_pharms.srl"));
+                BufferedWriter out = new BufferedWriter(new FileWriter(new File(DataModel.getInstance().getPharmaciesContainer().getCacheDir(), "") + "JSONcache_pharms.srl"));
                 out.write(arr.toString());
                 out.close();
-                parent.getSharedPreferences("PREFERENCE", parent.MODE_PRIVATE)
+                DataModel.getInstance().getPharmaciesContainer().getSharedPreferences("PREFERENCE", DataModel.getInstance().getPharmaciesContainer().MODE_PRIVATE)
                         .edit()
                         .putLong("date_pharm_data", System.currentTimeMillis())
                         .commit();
@@ -135,7 +130,7 @@ public class JSONPharmacyScraper {
         }
     }
 
-    protected static int fetchData(JSONArray arr, DataModel model) {
+    protected static int fetchData(JSONArray arr) {
         if (arr == null) {
             return 1;
         }
@@ -144,7 +139,7 @@ public class JSONPharmacyScraper {
             try {
                 JSONObject obj = arr.getJSONObject(i);
                 Pharmacy a = new Pharmacy(Float.parseFloat(obj.getString("lat")), Float.parseFloat(obj.getString("long")), Pharmacy.beautifyName(obj.getString("naam")), obj.getString("adres"), obj.getInt("distance"), obj.getString("id"), obj.getString("fid"), Integer.parseInt(obj.getString("postcode")), obj.getString("gemeente"));
-                model.addPharmacy(a);
+                DataModel.getInstance().addPharmacy(a);
             } catch (JSONException ex) {
                 Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, ex);
             } catch (NullPointerException e) {

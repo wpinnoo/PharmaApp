@@ -6,18 +6,19 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import mobi.pharmaapp.models.DataModel;
+import mobi.pharmaapp.util.JSONEmergencyPharmacyScraper;
 import mobi.pharmaapp.util.JSONPharmacyScraper;
 
 /**
  *
  * @author see /AUTHORS
  */
-public class LoadDataDialog extends AsyncTask<Void, Void, Integer> {
+public class LoadEmergencyDataDialog extends AsyncTask<Void, Void, Integer> {
 
     private final Activity parent;
     protected ProgressDialog dialog;
 
-    public LoadDataDialog(Activity parent) {
+    public LoadEmergencyDataDialog(Activity parent) {
         this.parent = parent;
         dialog = new ProgressDialog(parent);
     }
@@ -30,7 +31,7 @@ public class LoadDataDialog extends AsyncTask<Void, Void, Integer> {
 
     @Override
     protected Integer doInBackground(Void... params) {
-        return JSONPharmacyScraper.loadData();
+        return JSONEmergencyPharmacyScraper.loadData();
     }
 
     @Override
@@ -44,7 +45,7 @@ public class LoadDataDialog extends AsyncTask<Void, Void, Integer> {
     protected void showErrorDialogAndExit() {
         AlertDialog.Builder alert = new AlertDialog.Builder(parent);
         alert.setTitle("No internet connection available!");
-        alert.setMessage("You need an internet connection to refresh to list of pharmacists.");
+        alert.setMessage("You need an internet connection to refresh the list of emergency pharmacists.");
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
             }

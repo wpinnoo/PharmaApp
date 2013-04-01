@@ -32,15 +32,15 @@ import org.json.JSONObject;
  */
 public class JSONEmergencyPharmacyScraper {
 
-    private static boolean needsUpdate(Activity parent) {
-        long lastUpdate = parent.getSharedPreferences("PREFERENCE", Activity.MODE_PRIVATE).getLong("date_em_pharm_data", 0);
+    private static boolean needsUpdate() {
+        long lastUpdate = DataModel.getInstance().getEmergencyPharmaciesContainer().getSharedPreferences("PREFERENCE", Activity.MODE_PRIVATE).getLong("date_em_pharm_data", 0);
         return System.currentTimeMillis() - lastUpdate > 30 * 60 * 1000;
     }
 
-    private static JSONArray readCache(Activity parent) {
+    private static JSONArray readCache() {
         JSONArray arr = null;
         try {
-            BufferedReader br = new BufferedReader(new FileReader(new File(new File(parent.getCacheDir(), "") + "JSONcache_em_pharm.srl")));
+            BufferedReader br = new BufferedReader(new FileReader(new File(new File(DataModel.getInstance().getEmergencyPharmaciesContainer().getCacheDir(), "") + "JSONcache_em_pharm.srl")));
             String line, content = "";
             while ((line = br.readLine()) != null) {
                 content += line;
@@ -59,18 +59,18 @@ public class JSONEmergencyPharmacyScraper {
         }
     }
 
-    public static int loadData(DataModel model, Activity parent) {
+    public static int loadData() {
         JSONArray arr = null;
-        if (needsUpdate(parent) && isNetworkAvailable(parent)) {
-            arr = downloadData(parent);
+        if (needsUpdate() && isNetworkAvailable()) {
+            arr = downloadData();
         } else {
-            arr = readCache(parent);
+            arr = readCache();
         }
-        return fetchData(arr, model);
+        return fetchData(arr);
     }
 
-    private static boolean isNetworkAvailable(Activity parent) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) parent.getSystemService(Context.CONNECTIVITY_SERVICE);
+    private static boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) DataModel.getInstance().getEmergencyPharmaciesContainer().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
     }
@@ -86,7 +86,7 @@ public class JSONEmergencyPharmacyScraper {
         }
     }
 
-    protected static JSONArray downloadData(Activity parent) {
+    protected static JSONArray downloadData() {
         InputStream inp = getStream("http://data.pharmaapp.mobi/em_pharms.json");
         String result = "";
         try {
@@ -115,10 +115,10 @@ public class JSONEmergencyPharmacyScraper {
             Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                BufferedWriter out = new BufferedWriter(new FileWriter(new File(parent.getCacheDir(), "") + "JSONcache_em_pharm.srl"));
+                BufferedWriter out = new BufferedWriter(new FileWriter(new File(DataModel.getInstance().getEmergencyPharmaciesContainer().getCacheDir(), "") + "JSONcache_em_pharm.srl"));
                 out.write(arr.toString());
                 out.close();
-                parent.getSharedPreferences("PREFERENCE", parent.MODE_PRIVATE)
+                DataModel.getInstance().getEmergencyPharmaciesContainer().getSharedPreferences("PREFERENCE", DataModel.getInstance().getEmergencyPharmaciesContainer().MODE_PRIVATE)
                         .edit()
                         .putLong("date_em_pharm_data", System.currentTimeMillis())
                         .commit();
@@ -132,7 +132,7 @@ public class JSONEmergencyPharmacyScraper {
         }
     }
 
-    protected static int fetchData(JSONArray arr, DataModel model) {
+    protected static int fetchData(JSONArray arr) {
         if(arr == null){
             return 1;
         }
@@ -142,7 +142,7 @@ public class JSONEmergencyPharmacyScraper {
                 JSONObject obj = arr.getJSONObject(i);
                 String address = obj.getString("street") + " " + obj.getString("nr");
                 Pharmacy a = new Pharmacy((float) 0, (float) 0, obj.getString("name"), address, 0, "0", "0", Integer.parseInt(obj.getString("zip")), obj.getString("city"), obj.getString("tel"));
-                model.addEmergencyPharmacy(a);
+                DataModel.getInstance().addEmergencyPharmacy(a);
             } catch (JSONException ex) {
                 Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, ex);
             } catch (NullPointerException e) {

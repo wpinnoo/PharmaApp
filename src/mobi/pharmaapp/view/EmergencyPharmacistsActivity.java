@@ -37,10 +37,22 @@ public class EmergencyPharmacistsActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.emergency_layout);
+        DataModel.getInstance().setEmergencyPharmacistsContainerIfNull(this);
         cal = new GregorianCalendar();
         datef = new SimpleDateFormat();
-        new LoadData(this).execute();
+        new LoadEmergencyDataDialog(this).execute();
         ((TextView) findViewById(R.id.date_field)).setText("Apothekers voor: " + datef.format(new Date()));
+        new LoadEmergencyDataDialog(this) {
+            @Override
+            protected void onPostExecute(Integer result) {
+                this.dialog.dismiss();
+                if (result.intValue() == 1) {
+                    this.showErrorDialogAndExit();
+                } else {
+                    setListContent();
+                }
+            }
+        }.execute();
     }
 
     private void setListContent() {
@@ -72,40 +84,8 @@ public class EmergencyPharmacistsActivity extends ListActivity {
         alert.setMessage("You need an internet connection to refresh the list of emergency pharmacists.");
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                
             }
         });
         alert.show();
-    }
-
-    private class LoadData extends AsyncTask<Void, Void, Integer> {
-
-        private ProgressDialog dialog = new ProgressDialog(EmergencyPharmacistsActivity.this);
-        private Activity parent;
-
-        public LoadData(Activity parent) {
-            this.parent = parent;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            dialog.setMessage("Loading data...");
-            dialog.show();
-        }
-
-        @Override
-        protected Integer doInBackground(Void... params) {
-            return JSONEmergencyPharmacyScraper.loadData(DataModel.getInstance(), parent);
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            dialog.dismiss();
-            if (result.intValue() == 1) {
-                showErrorDialogAndExit(EmergencyPharmacistsActivity.this);
-            } else {
-                setListContent();
-            }
-        }
     }
 }
