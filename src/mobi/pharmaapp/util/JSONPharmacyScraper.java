@@ -73,21 +73,17 @@ public class JSONPharmacyScraper {
         return activeNetworkInfo != null;
     }
 
-    protected static InputStream getStream(String full_url) {
-        try {
-            URL url = new URL(full_url);
-            URLConnection urlConnection = url.openConnection();
-            urlConnection.setConnectTimeout(1000);
-            return urlConnection.getInputStream();
-        } catch (Exception ex) {
-            return null;
-        }
+    protected static InputStream getStream(String full_url) throws IOException {
+        URL url = new URL(full_url);
+        URLConnection urlConnection = url.openConnection();
+        urlConnection.setConnectTimeout(1000);
+        return urlConnection.getInputStream();
     }
 
     protected static JSONArray downloadData() {
-        InputStream inp = getStream("http://datatank.gent.be/Gezondheid/Apotheken.json");
         String result = "";
         try {
+            InputStream inp = getStream("http://datatank.gent.be/Gezondheid/Apotheken.json");
             BufferedReader reader = new BufferedReader(new InputStreamReader(inp, "iso-8859-1"), 8);
             StringBuilder builder = new StringBuilder();
             builder.append(reader.readLine()).append("\n");
@@ -100,8 +96,10 @@ public class JSONPharmacyScraper {
             result = builder.toString();
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         } catch (IOException e) {
             Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, e);
+            return null;
         }
         JSONArray arr = null;
         try {
