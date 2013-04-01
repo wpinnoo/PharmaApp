@@ -19,12 +19,14 @@ public class PharmacyAdapter extends ArrayAdapter<Pharmacy> {
 
     private ArrayList<Pharmacy> objects;
     private ArrayList<Pharmacy> original;
+    private Context context;
 
     public PharmacyAdapter(Context context, int textViewResourceId, ArrayList<Pharmacy> objects) {
         super(context, textViewResourceId, objects);
         this.objects = objects;
         original = new ArrayList<Pharmacy>();
         original.addAll(objects);
+        this.context = context;
     }
 
     @Override
@@ -38,7 +40,7 @@ public class PharmacyAdapter extends ArrayAdapter<Pharmacy> {
         try {
             tt.setText(objects.get(position).getName());
         } catch (NullPointerException e) {
-            tt.setText("Loading");
+            tt.setText(context.getString(R.string.loading));
         }
         return v;
     }
