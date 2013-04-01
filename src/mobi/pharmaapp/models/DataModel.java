@@ -75,12 +75,12 @@ public class DataModel {
             case SORT_ALPH:
                 sorted = new ArrayList<Pharmacy>();
                 sorted.addAll(em_pharmacies);
-                Collections.sort(sorted, new PharmacyComparator());
+                Collections.sort(sorted, new PharmacyAlphComparator());
                 return sorted;
             case SORT_ON_DISTANCE:
                 sorted = new ArrayList<Pharmacy>();
                 sorted.addAll(em_pharmacies);
-                Collections.sort(sorted, new PharmacyAlphComparator());
+                Collections.sort(sorted, new PharmacyComparator());
                 return sorted;
             default:
                 return em_pharmacies;
