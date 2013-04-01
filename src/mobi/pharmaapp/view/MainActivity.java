@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_layout);
 
-        new LoadData().execute();
+        new LoadDataDialog(this).execute();
 
         UserModel.getInstance().setCurrentLocation(new Location((float) 51.1006070515313, (float) 3.76332831384537));
 
@@ -79,41 +79,5 @@ public class MainActivity extends Activity {
     public void onStop() {
         super.onStop();
         EasyTracker.getInstance().activityStop(this);
-    }
-
-    private static void showErrorDialogAndExit(final Activity parent) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(parent);
-        alert.setTitle("No internet connection available!");
-        alert.setMessage("You need an internet connection to refresh to list of pharmacists.");
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                
-            }
-        });
-        alert.show();
-    }
-
-    private class LoadData extends AsyncTask<Void, Void, Integer> {
-
-        private ProgressDialog dialog = new ProgressDialog(MainActivity.this);
-
-        @Override
-        protected void onPreExecute() {
-            dialog.setMessage("Loading data...");
-            dialog.show();
-        }
-
-        @Override
-        protected Integer doInBackground(Void... params) {
-            return JSONPharmacyScraper.loadData(DataModel.getInstance(), MainActivity.this);
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            dialog.dismiss();
-            if (result.intValue() == 1) {
-                showErrorDialogAndExit(MainActivity.this);
-            }
-        }
     }
 }

@@ -1,9 +1,13 @@
 package mobi.pharmaapp.view;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -16,6 +20,7 @@ import mobi.pharmaapp.util.Pharmacy;
 import mobi.pharmaapp.util.PharmacyAlphComparator;
 import java.util.ArrayList;
 import java.util.Collections;
+import mobi.pharmaapp.util.JSONPharmacyScraper;
 
 /**
  *
@@ -32,11 +37,8 @@ public class SearchActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_layout);
 
-        list = new ArrayList<Pharmacy>();
-        list.addAll(DataModel.getInstance().getPharmacies().values());
-        Collections.sort(list, new PharmacyAlphComparator());
-        adapter = new PharmacyAdapter(this, R.layout.list_item, list);
-        setListAdapter(adapter);
+        fillList();
+
         filterText = (EditText) findViewById(R.id.search_box);
         filterText.addTextChangedListener(filterTextWatcher);
         final ListView lv = getListView();
@@ -45,6 +47,14 @@ public class SearchActivity extends ListActivity {
                 InfoPopup.showPopup(SearchActivity.this, (Pharmacy) (lv.getItemAtPosition(i)));
             }
         });
+    }
+
+    public void fillList() {
+        list = new ArrayList<Pharmacy>();
+        list.addAll(DataModel.getInstance().getPharmacies().values());
+        Collections.sort(list, new PharmacyAlphComparator());
+        adapter = new PharmacyAdapter(this, R.layout.list_item, list);
+        setListAdapter(adapter);
     }
     private TextWatcher filterTextWatcher = new TextWatcher() {
         public void afterTextChanged(Editable s) {
@@ -70,5 +80,25 @@ public class SearchActivity extends ListActivity {
     public void onStop() {
         super.onStop();
         EasyTracker.getInstance().activityStop(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.refresh_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.refresh:
+                new LoadDataDialog(this).execute();
+                fillList();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

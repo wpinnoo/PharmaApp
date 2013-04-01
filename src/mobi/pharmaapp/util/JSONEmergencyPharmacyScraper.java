@@ -32,12 +32,12 @@ import org.json.JSONObject;
  */
 public class JSONEmergencyPharmacyScraper {
 
-    public static boolean needsUpdate(Activity parent) {
+    private static boolean needsUpdate(Activity parent) {
         long lastUpdate = parent.getSharedPreferences("PREFERENCE", Activity.MODE_PRIVATE).getLong("date_em_pharm_data", 0);
         return System.currentTimeMillis() - lastUpdate > 30 * 60 * 1000;
     }
 
-    public static JSONArray readCache(Activity parent) {
+    private static JSONArray readCache(Activity parent) {
         JSONArray arr = null;
         try {
             BufferedReader br = new BufferedReader(new FileReader(new File(new File(parent.getCacheDir(), "") + "JSONcache_em_pharm.srl")));
