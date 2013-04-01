@@ -3,10 +3,8 @@ package mobi.pharmaapp.view;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,11 +17,9 @@ import com.google.analytics.tracking.android.EasyTracker;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import mobi.pharmaapp.R;
 import mobi.pharmaapp.models.DataModel;
-import mobi.pharmaapp.util.JSONEmergencyPharmacyScraper;
 
 import mobi.pharmaapp.util.Pharmacy;
 
@@ -44,7 +40,7 @@ public class EmergencyPharmacistsActivity extends ListActivity {
         DataModel.getInstance().setEmergencyPharmacistsContainerIfNull(this);
         cal = new GregorianCalendar();
         datef = new SimpleDateFormat();
-        new LoadEmergencyDataDialog(this, false) {
+        new LoadEmergencyDataDialog(this) {
             @Override
             protected void onPostExecute(Integer result) {
                 this.dialog.dismiss();

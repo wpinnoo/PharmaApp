@@ -28,7 +28,7 @@ public class LocateActivity extends MapActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nearby_layout);
         DataModel.getInstance().setPharmacistsContainerIfNull(this);
-        
+
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.getController().setZoom(12);
 
