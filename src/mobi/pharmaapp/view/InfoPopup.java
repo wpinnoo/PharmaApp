@@ -28,8 +28,7 @@ public class InfoPopup {
         ((TextView) d.findViewById(R.id.apo_address)).setText("Address: " + a.getAddress());
         ((TextView) d.findViewById(R.id.apo_zipcode)).setText("Zipcode: " + a.getZipcode());
         ((TextView) d.findViewById(R.id.apo_town)).setText("Town: " + a.getTown());
-        a.setTelnr("+3293445433");
-        if (!"".equals(a.getTelnr())) {
+        if (!a.getTelnr().isEmpty()) {
             LinearLayout ll = (LinearLayout) d.findViewById(R.id.layout);
             TextView tel = new TextView(c);
             tel.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
