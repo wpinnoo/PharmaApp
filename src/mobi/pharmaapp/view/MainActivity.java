@@ -1,13 +1,19 @@
 package mobi.pharmaapp.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 import com.google.analytics.tracking.android.EasyTracker;
 import mobi.pharmaapp.R;
 import mobi.pharmaapp.models.DataModel;
+import mobi.pharmaapp.models.UserModel;
 
 /**
  *
@@ -57,6 +63,15 @@ public class MainActivity extends Activity {
                 startActivity(i);
             }
         });
+        
+        getCurrentLocation();
+    }
+    
+    private void getCurrentLocation(){
+        Toast.makeText(getApplicationContext(), "Getting your current location...", Toast.LENGTH_LONG).show();
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        UserLocationListener ll = new UserLocationListener();
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
     }
 
     @Override
@@ -69,5 +84,22 @@ public class MainActivity extends Activity {
     public void onStop() {
         super.onStop();
         EasyTracker.getInstance().activityStop(this);
+    }
+    
+    private class UserLocationListener implements LocationListener {
+
+        public void onLocationChanged(Location location) {
+            UserModel.getInstance().setCurrentLocation(location.getLatitude(), location.getLongitude());
+        }
+
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+        }
+
+        public void onProviderEnabled(String provider) {
+        }
+
+        public void onProviderDisabled(String provider) {
+        }
+        
     }
 }

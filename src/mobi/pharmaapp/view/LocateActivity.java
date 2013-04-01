@@ -19,6 +19,7 @@ import mobi.pharmaapp.util.Pharmacy;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import mobi.pharmaapp.models.UserModel;
 
 /**
  *
@@ -106,6 +107,8 @@ public class LocateActivity extends MapActivity {
                 curLoc = new GeoPoint(
                         (int) (location.getLatitude() * 1E6), (int) (location.getLongitude() * 1E6));
 
+                UserModel.getInstance().setCurrentLocation(curLoc);
+                
                 mapView.getController().animateTo(curLoc);
                 mapView.getController().setZoom(15);
 

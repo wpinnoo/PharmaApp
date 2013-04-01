@@ -1,5 +1,6 @@
 package mobi.pharmaapp.models;
 
+import com.google.android.maps.GeoPoint;
 import mobi.pharmaapp.util.Location;
 
 /**
@@ -8,12 +9,11 @@ import mobi.pharmaapp.util.Location;
  */
 public class UserModel {
 
-    private Location curLoc;
+    private GeoPoint curLoc;
     private static final UserModel userModel = new UserModel();
 
     private UserModel() {
-        //TODO: DELETE CONSTANT VALUE
-        curLoc = new Location((float) 51.1006070515313, (float) 3.76332831384537);
+        curLoc = new GeoPoint(51100607, 3763328);
     }
 
     public static UserModel getInstance() {
@@ -21,14 +21,14 @@ public class UserModel {
     }
 
     public Location getCurrentLocation() {
-        return curLoc;
+        return new Location((float) curLoc.getLatitudeE6() / 1000000, (float) curLoc.getLongitudeE6() / 1000000);
     }
 
-    public void setCurrentLocation(Location l) {
+    public void setCurrentLocation(GeoPoint l) {
         curLoc = l;
     }
 
-    public void setCurrentLocation(float lat, float lon) {
-        curLoc = new Location(lat, lon);
+    public void setCurrentLocation(double lat, double lon) {
+        curLoc = new GeoPoint((int) (lat * 1000000), (int) (lon * 1000000));
     }
 }

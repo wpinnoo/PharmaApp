@@ -44,7 +44,7 @@ public class EmergencyPharmacistsActivity extends ListActivity {
     }
 
     private void setListContent() {
-        adapter = new PharmacyAdapter(this, R.layout.list_item, DataModel.getInstance().getEmergencyPharmacies());
+        adapter = new PharmacyAdapter(this, R.layout.list_item, DataModel.getInstance().getEmergencyPharmacies(DataModel.LIST_TYPE.SORT_ON_DISTANCE));
         setListAdapter(adapter);
         final ListView lv = getListView();
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
