@@ -31,11 +31,11 @@ public class InfoPopup {
         if (!a.getTelnr().isEmpty()) {
             LinearLayout ll = (LinearLayout) d.findViewById(R.id.layout);
             TextView tel = new TextView(c);
-            tel.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+            tel.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1));
             tel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
             tel.setText("Telephone: " + a.getTelnr());
-            ll.addView(tel);
             Linkify.addLinks(tel, Pattern.compile("\\+?(\\d){8,11}"), "tel:");
+            ll.addView(tel);
         }
         d.show();
     }

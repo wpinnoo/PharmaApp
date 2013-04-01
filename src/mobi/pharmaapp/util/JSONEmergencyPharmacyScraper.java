@@ -60,7 +60,7 @@ public class JSONEmergencyPharmacyScraper {
     }
 
     public static int loadData(boolean force) {
-        JSONArray arr = null;
+        JSONArray arr;
         if (force || (needsUpdate() && isNetworkAvailable())) {
             arr = downloadData();
         } else {
@@ -85,7 +85,7 @@ public class JSONEmergencyPharmacyScraper {
     }
 
     protected static JSONArray downloadData() {
-        String result = "";
+        String result;
         try {
             InputStream inp = getStream("http://data.pharmaapp.mobi/em_pharms.json");
             BufferedReader reader = new BufferedReader(new InputStreamReader(inp, "iso-8859-1"), 8);
@@ -118,7 +118,7 @@ public class JSONEmergencyPharmacyScraper {
                 BufferedWriter out = new BufferedWriter(new FileWriter(new File(DataModel.getInstance().getEmergencyPharmaciesContainer().getCacheDir(), "") + "JSONcache_em_pharm.srl"));
                 out.write(arr.toString());
                 out.close();
-                DataModel.getInstance().getEmergencyPharmaciesContainer().getSharedPreferences("PREFERENCE", DataModel.getInstance().getEmergencyPharmaciesContainer().MODE_PRIVATE)
+                DataModel.getInstance().getEmergencyPharmaciesContainer().getSharedPreferences("PREFERENCE", Activity.MODE_PRIVATE)
                         .edit()
                         .putLong("date_em_pharm_data", System.currentTimeMillis())
                         .commit();

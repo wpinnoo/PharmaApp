@@ -1,6 +1,5 @@
 package mobi.pharmaapp.view;
 
-import mobi.pharmaapp.util.Location;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.widget.Button;
 import com.google.analytics.tracking.android.EasyTracker;
 import mobi.pharmaapp.R;
 import mobi.pharmaapp.models.DataModel;
-import mobi.pharmaapp.models.UserModel;
 
 /**
  *
@@ -22,7 +20,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_layout);
         DataModel.getInstance().setPharmacistsContainerIfNull(this);
-        UserModel.getInstance().setCurrentLocation(new Location((float) 51.1006070515313, (float) 3.76332831384537));
 
         Button btn_search = (Button) findViewById(R.id.btn_search);
         Button btn_nearby = (Button) findViewById(R.id.btn_nearby);
