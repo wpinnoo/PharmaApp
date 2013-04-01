@@ -1,7 +1,12 @@
 package mobi.pharmaapp.view;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.widget.Toast;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -22,6 +27,8 @@ import java.util.List;
 public class LocateActivity extends MapActivity {
 
     private MapView mapView;
+    private GeoPoint curLoc;
+    private MapOverlayItem previousLoc;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,9 +37,13 @@ public class LocateActivity extends MapActivity {
         DataModel.getInstance().setPharmacistsContainerIfNull(this);
 
         mapView = (MapView) findViewById(R.id.mapView);
-        mapView.getController().setZoom(12);
+        mapView.getController().setZoom(14);
 
         mapView.setBuiltInZoomControls(true);
+
+        final List<Overlay> mapOverlays = mapView.getOverlays();
+        Drawable drawable = this.getResources().getDrawable(R.drawable.loc);
+        final MapOverlayItem itemizedoverlay = new MapOverlayItem(drawable, this);
 
         new LoadDataDialog(this) {
             @Override
@@ -41,19 +52,18 @@ public class LocateActivity extends MapActivity {
                 if (result.intValue() == 1) {
                     this.showErrorDialogAndExit();
                 } else {
-                    addOverlays();
+                    addOverlays(itemizedoverlay, mapOverlays);
                 }
             }
         }.execute();
+
+        Toast.makeText(getApplicationContext(), "Getting your current location...", Toast.LENGTH_LONG).show();
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        MapLocationListener ll = new MapLocationListener();
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
     }
 
-    private void addOverlays() {
-        List<Overlay> mapOverlays = mapView.getOverlays();
-        Drawable drawable = this.getResources().getDrawable(R.drawable.loc);
-
-
-        MapOverlayItem itemizedoverlay = new MapOverlayItem(drawable, this);
-
+    private void addOverlays(MapOverlayItem itemizedoverlay, List<Overlay> mapOverlays) {
         Collection<Pharmacy> c = DataModel.getInstance().getPharmacies().values();
         List<Pharmacy> l = new ArrayList<Pharmacy>();
         l.addAll(c);
@@ -83,5 +93,39 @@ public class LocateActivity extends MapActivity {
     public void onStop() {
         super.onStop();
         EasyTracker.getInstance().activityStop(this);
+    }
+
+    private class MapLocationListener implements LocationListener {
+
+        public void onLocationChanged(Location location) {
+            if (location != null) {
+                List<Overlay> mapOverlays = mapView.getOverlays();
+                Drawable drawable = LocateActivity.this.getResources().getDrawable(R.drawable.curloc);
+                MapOverlayItem itemizedoverlay = new MapOverlayItem(drawable, LocateActivity.this);
+
+                curLoc = new GeoPoint(
+                        (int) (location.getLatitude() * 1E6), (int) (location.getLongitude() * 1E6));
+
+                mapView.getController().animateTo(curLoc);
+                mapView.getController().setZoom(15);
+
+                OverlayItem overlayitem = new OverlayItem(curLoc, "Me", "My current location");
+                itemizedoverlay.addOverlay(overlayitem);
+                if(previousLoc != null) {
+                    mapOverlays.remove(previousLoc);
+                }
+                mapOverlays.add(itemizedoverlay);
+                previousLoc = itemizedoverlay;
+            }
+        }
+
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+        }
+
+        public void onProviderEnabled(String provider) {
+        }
+
+        public void onProviderDisabled(String provider) {
+        }
     }
 }
