@@ -1,7 +1,6 @@
 package mobi.pharmaapp.view;
 
 import android.app.ListActivity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -108,7 +107,6 @@ public class SearchActivity extends ListActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
         switch (item.getItemId()) {
             case R.id.refresh:
                 new LoadDataDialog(this, true) {

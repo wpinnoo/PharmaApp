@@ -49,7 +49,7 @@ public class LoadDataDialog extends AsyncTask<Void, Void, Integer> {
     protected void showErrorDialogAndExit() {
         AlertDialog.Builder alert = new AlertDialog.Builder(parent);
         alert.setTitle("No internet connection available!");
-        alert.setMessage("You need an internet connection to refresh to list of pharmacists.");
+        alert.setMessage("You need an internet connection to refresh the list of pharmacists.");
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
             }

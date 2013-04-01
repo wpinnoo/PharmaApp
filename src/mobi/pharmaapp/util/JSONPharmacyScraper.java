@@ -81,10 +81,10 @@ public class JSONPharmacyScraper {
     }
 
     protected static JSONArray downloadData() {
-        String result = "";
+        String result;
         try {
-            InputStream inp = getStream("http://datatank.gent.be/Gezondheid/Apotheken.json");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inp, "iso-8859-1"), 8);
+            InputStream inp = getStream(LocalConstants.PHARMACY_JSON);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inp, LocalConstants.EMERGENCY_JSON), 8);
             StringBuilder builder = new StringBuilder();
             builder.append(reader.readLine()).append("\n");
 
