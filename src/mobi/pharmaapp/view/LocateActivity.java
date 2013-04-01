@@ -59,7 +59,7 @@ public class LocateActivity extends MapActivity {
             }
         }.execute();
 
-        Toast.makeText(getApplicationContext(), "Getting your current location...", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), getString(R.string.get_cur_loc), Toast.LENGTH_LONG).show();
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         MapLocationListener ll = new MapLocationListener();
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
@@ -115,7 +115,7 @@ public class LocateActivity extends MapActivity {
                     mapView.getController().setZoom(15);
                 }
 
-                OverlayItem overlayitem = new OverlayItem(curLoc, "Me", "My current location");
+                OverlayItem overlayitem = new OverlayItem(curLoc, getString(R.string.me), getString(R.string.my_cur_loc));
                 itemizedoverlay.addOverlay(overlayitem);
                 if (previousLoc != null) {
                     mapOverlays.remove(previousLoc);

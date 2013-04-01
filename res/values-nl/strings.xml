@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PharmaApp</string>
+    <string name="refresh">Vernieuw</string>
+    <string name="em_pharms_date_prefix">Laatst vernieuwd om:  </string>
+    <string name="name">Naam</string>
+    <string name="address">Adres</string>
+    <string name="zipcode">Postcode</string>
+    <string name="town">Stad</string>
+    <string name="tel">Tel.</string>
+    <string name="loading_data">Laden...</string>
+    <string name="internet_conn_error_title">Geen internetconnectie beschikbaar!</string>
+    <string name="internet_conn_error_msg_pharmlist">Je hebt een internet connectie nodig om de lijst met apotheken te laden.</string>
+    <string name="internet_conn_error_msg_em_pharmlist">Je hebt een internet connectie nodig om de lijst met apotheken van wacht te laden.</string>
+    <string name="ok">Ok</string>
+    <string name="get_cur_loc">Bezig met je huidige locatie op te halen...</string>
+    <string name="me">Ik</string>
+    <string name="my_cur_loc">Mijn huidige locatie</string>
+    <string name="loading">Laden</string>
+    <string name="about_hackaton">Deze app werd ontwikkeld tijdens de AppsForGhent 2013 Hackaton.\n</string>
+    <string name="src_available">De broncode is beschikbaar op: </string>
+    <string name="weblink">http://www.PharmaApp.mobi\n</string>
+    <string name="credits">Coding:\nWouter Pinnoo\nStefaan Vermassen\nTitouan Vervack\n\nLogo\'s:\nMaxime Fernández Alonso</string>
+    <string name="search">Zoek</string>
+    <string name="nearby">Dichtbij</string>
+    <string name="em_pharms">Van wacht</string>
+    <string name="about">Info</string>
+    <string name="search_with_dots">Zoek...</string>
+
+</resources>

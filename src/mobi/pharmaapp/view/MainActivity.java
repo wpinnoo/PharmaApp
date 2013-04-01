@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
     }
     
     private void getCurrentLocation(){
-        Toast.makeText(getApplicationContext(), "Getting your current location...", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), getString(R.string.get_cur_loc), Toast.LENGTH_LONG).show();
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         UserLocationListener ll = new UserLocationListener();
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);

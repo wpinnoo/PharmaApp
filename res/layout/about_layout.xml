@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" 
         android:layout_weight="1"
-        android:text="This app was made during the hackaton of AppsForGhent 2013.\n"
+        android:text="@string/about_hackaton"
         android:gravity="center_horizontal"
         android:textSize="20sp"
     />
@@ -17,7 +17,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" 
         android:layout_weight="1"
-        android:text="The source code is available at: "
+        android:text="@string/src_available"
         android:gravity="center"
         android:textSize="15sp"
     />
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content" 
         android:layout_weight="1"
         android:autoLink="web"
-        android:text="http://www.PharmaApp.mobi\n"
+        android:text="@string/weblink"
         android:gravity="center"
         android:textSize="15sp"
     />
@@ -36,7 +36,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" 
         android:layout_weight="1"
-        android:text="Coding:\nWouter Pinnoo\nStefaan Vermassen\nTitouan Vervack\n\nLogo's:\nMaxime Fernández Alonso"
+        android:text="@string/credits"
         android:gravity="center"
         android:textSize="15sp"
     />

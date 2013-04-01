@@ -37,7 +37,7 @@ public class EmergencyPharmacistsActivity extends ListActivity {
                     this.showErrorDialogAndExit();
                 } else {
                     setListContent();
-                    ((TextView) findViewById(R.id.date_field)).setText("Apothekers voor: " + new SimpleDateFormat().format(DataModel.getInstance().getLastEmPharmsUpdate()));
+                    ((TextView) findViewById(R.id.date_field)).setText(getString(R.string.em_pharms_date_prefix) + new SimpleDateFormat().format(DataModel.getInstance().getLastEmPharmsUpdate()));
                 }
             }
         }.execute();
@@ -85,7 +85,7 @@ public class EmergencyPharmacistsActivity extends ListActivity {
                             this.showErrorDialogAndExit();
                         } else {
                             setListContent();
-                            ((TextView) findViewById(R.id.date_field)).setText("Apothekers voor: " + new SimpleDateFormat().format(DataModel.getInstance().getLastEmPharmsUpdate()));
+                            ((TextView) findViewById(R.id.date_field)).setText(getString(R.string.em_pharms_date_prefix) + new SimpleDateFormat().format(DataModel.getInstance().getLastEmPharmsUpdate()));
                         }
                     }
                 }.execute();
