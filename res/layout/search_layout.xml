@@ -5,12 +5,31 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <EditText android:id="@+android:id/search_box" 
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:hint="Zoek..."
-              android:inputType="text"
-              android:maxLines="1"/>
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2px">
+        
+        <EditText android:id="@+android:id/search_box" 
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:hint="Zoek..."
+                  android:inputType="text"
+                  android:maxLines="1"
+                  android:singleLine="true"
+                  android:layout_marginTop="20dp"
+        />
+        
+        <Button
+            android:id="@+id/clear_search"      
+            android:layout_width="32px"
+            android:layout_height="32px"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="right|center_vertical"
+            android:background="@drawable/clear" />
+        
+    </FrameLayout>
+    
 
     <ListView android:id="@+id/android:list"
               android:layout_width="fill_parent"

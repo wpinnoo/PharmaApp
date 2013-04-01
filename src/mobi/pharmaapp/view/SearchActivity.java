@@ -9,8 +9,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import com.google.analytics.tracking.android.EasyTracker;
@@ -54,6 +56,13 @@ public class SearchActivity extends ListActivity {
         lv.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> av, View view, int i, long l) {
                 InfoPopup.showPopup(SearchActivity.this, (Pharmacy) (lv.getItemAtPosition(i)));
+            }
+        });
+        
+        ((Button) findViewById(R.id.clear_search)).setOnClickListener(new OnClickListener() {
+
+            public void onClick(View v) {
+                ((EditText) findViewById(R.id.search_box)).setText("");
             }
         });
     }
