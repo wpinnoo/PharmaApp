@@ -134,7 +134,7 @@ public class JSONPharmacyScraper {
         if (arr == null) {
             return 1;
         }
-        DataModel.getInstance().reset();
+        DataModel.getInstance().resetPharmacists();
         for (int i = 0; i < arr.length(); i++) {
             try {
                 JSONObject obj = arr.getJSONObject(i);
