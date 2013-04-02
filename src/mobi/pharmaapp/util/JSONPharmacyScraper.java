@@ -84,7 +84,7 @@ public class JSONPharmacyScraper {
         String result;
         try {
             InputStream inp = getStream(LocalConstants.PHARMACY_JSON);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inp, LocalConstants.EMERGENCY_JSON), 8);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inp, LocalConstants.ENCODING), 8);
             StringBuilder builder = new StringBuilder();
             builder.append(reader.readLine()).append("\n");
 
