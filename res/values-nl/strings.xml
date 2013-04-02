@@ -11,8 +11,8 @@
     <string name="tel">Tel.</string>
     <string name="loading_data">Laden...</string>
     <string name="internet_conn_error_title">Geen internetconnectie beschikbaar!</string>
-    <string name="internet_conn_error_msg_pharmlist">Je hebt een internet connectie nodig om de lijst met apotheken te laden.</string>
-    <string name="internet_conn_error_msg_em_pharmlist">Je hebt een internet connectie nodig om de lijst met apotheken van wacht te laden.</string>
+    <string name="internet_conn_error_msg_pharmlist">Je hebt een internetconnectie nodig om de lijst met apotheken te laden.</string>
+    <string name="internet_conn_error_msg_em_pharmlist">Je hebt een internetconnectie nodig om de lijst met apotheken van wacht te laden.</string>
     <string name="ok">Ok</string>
     <string name="get_cur_loc">Bezig met je huidige locatie op te halen...</string>
     <string name="me">Ik</string>

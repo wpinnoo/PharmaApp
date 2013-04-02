@@ -61,8 +61,7 @@ public class LocateActivity extends MapActivity {
 
         Toast.makeText(getApplicationContext(), getString(R.string.get_cur_loc), Toast.LENGTH_LONG).show();
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        MapLocationListener ll = new MapLocationListener();
-        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new MapLocationListener());
     }
 
     private void addOverlays(MapOverlayItem itemizedoverlay, List<Overlay> mapOverlays) {
@@ -74,8 +73,7 @@ public class LocateActivity extends MapActivity {
             if (i == 0) {
                 mapView.getController().setCenter(point);
             }
-            OverlayItem overlayitem = new OverlayItem(point, l.get(i).getName(), l.get(i).getAddress());
-            itemizedoverlay.addOverlay(overlayitem);
+            itemizedoverlay.addOverlay(new OverlayItem(point, l.get(i).getName(), l.get(i).getAddress()));
         }
         mapOverlays.add(itemizedoverlay);
     }
@@ -105,8 +103,7 @@ public class LocateActivity extends MapActivity {
                 Drawable drawable = LocateActivity.this.getResources().getDrawable(R.drawable.curloc);
                 MapOverlayItem itemizedoverlay = new MapOverlayItem(drawable, LocateActivity.this);
 
-                curLoc = new GeoPoint(
-                        (int) (location.getLatitude() * 1E6), (int) (location.getLongitude() * 1E6));
+                curLoc = new GeoPoint((int) (location.getLatitude() * 1E6), (int) (location.getLongitude() * 1E6));
 
                 UserModel.getInstance().setCurrentLocation(curLoc);
 
