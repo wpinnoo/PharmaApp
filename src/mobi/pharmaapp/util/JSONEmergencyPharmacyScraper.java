@@ -21,7 +21,6 @@ import java.net.URLConnection;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static mobi.pharmaapp.util.JSONPharmacyScraper.downloadData;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
