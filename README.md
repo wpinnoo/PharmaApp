@@ -13,4 +13,4 @@ This app was made for the AppsForGhent 2013 competition, we won for the European
 * Maxime Fernández Alonso
 
 # Screenshots
-![Screenshot of PharmaApp](https://raw.github.com/wpinnoo/PharmaApp/master/screenshots/all.png)
+![Screenshot of PharmaApp](https://raw.github.com/wpinnoo/PharmaApp/master/screenshots/nl/all.png)
