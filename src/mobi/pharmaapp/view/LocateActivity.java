@@ -123,6 +123,7 @@ public class LocateActivity extends MapActivity {
                 }
                 mapOverlays.add(itemizedoverlay);
                 previousLocOverlay = itemizedoverlay;
+                previousLoc = curLoc;
             }
         }
 
