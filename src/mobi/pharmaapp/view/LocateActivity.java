@@ -30,7 +30,8 @@ public class LocateActivity extends MapActivity {
 
     private MapView mapView;
     private GeoPoint curLoc;
-    private MapOverlayItem previousLoc;
+    private MapOverlayItem previousLocOverlay;
+    private GeoPoint previousLoc;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,8 @@ public class LocateActivity extends MapActivity {
         setContentView(R.layout.nearby_layout);
         DataModel.getInstance().setPharmacistsContainerIfNull(this);
 
+        previousLoc = LocalConstants.INITIAL_USER_LOCATION;
+        
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.getController().setZoom(14);
 
@@ -107,18 +110,19 @@ public class LocateActivity extends MapActivity {
 
                 UserModel.getInstance().setCurrentLocation(curLoc);
 
-                if (curLoc != LocalConstants.INITIAL_USER_LOCATION) {
+                if (Math.abs(curLoc.getLatitudeE6() - previousLoc.getLatitudeE6()) > 1E4
+                        && Math.abs(curLoc.getLongitudeE6() - previousLoc.getLongitudeE6()) > 1E3) {
                     mapView.getController().animateTo(curLoc);
                     mapView.getController().setZoom(15);
                 }
 
                 OverlayItem overlayitem = new OverlayItem(curLoc, getString(R.string.me), getString(R.string.my_cur_loc));
                 itemizedoverlay.addOverlay(overlayitem);
-                if (previousLoc != null) {
-                    mapOverlays.remove(previousLoc);
+                if (previousLocOverlay != null) {
+                    mapOverlays.remove(previousLocOverlay);
                 }
                 mapOverlays.add(itemizedoverlay);
-                previousLoc = itemizedoverlay;
+                previousLocOverlay = itemizedoverlay;
             }
         }
 
