@@ -63,15 +63,14 @@ public class MainActivity extends Activity {
                 startActivity(i);
             }
         });
-        
+
         getCurrentLocation();
     }
-    
+
     private void getCurrentLocation(){
         Toast.makeText(getApplicationContext(), getString(R.string.get_cur_loc), Toast.LENGTH_LONG).show();
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        UserLocationListener ll = new UserLocationListener();
-        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new UserLocationListener());
     }
 
     @Override
@@ -85,7 +84,7 @@ public class MainActivity extends Activity {
         super.onStop();
         EasyTracker.getInstance().activityStop(this);
     }
-    
+
     private class UserLocationListener implements LocationListener {
 
         public void onLocationChanged(Location location) {
@@ -100,6 +99,6 @@ public class MainActivity extends Activity {
 
         public void onProviderDisabled(String provider) {
         }
-        
+
     }
 }

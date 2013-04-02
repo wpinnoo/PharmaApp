@@ -14,7 +14,7 @@
     <string name="internet_conn_error_msg_pharmlist">You need an internet connection to refresh the list of pharmacists.</string>
     <string name="internet_conn_error_msg_em_pharmlist">You need an internet connection to refresh the list of emergency pharmacists.</string>
     <string name="ok">Ok</string>
-    <string name="get_cur_loc">Getting your current location...</string>
+    <string name="get_cur_loc">Retrieving your current location...</string>
     <string name="me">Me</string>
     <string name="my_cur_loc">My current location</string>
     <string name="loading">Loading</string>
