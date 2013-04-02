@@ -4,7 +4,7 @@ A simple application to find the nearest pharmacy from your current location (on
 This app was made for the AppsForGhent 2013 competition, we won for the European jury.   
 
 ## PlayStore
-This app is available on the [Google Play Store](>https://play.google.com/store/apps/details?id=mobi.pharmaapp).
+This app is available on the [Google Play Store](https://play.google.com/store/apps/details?id=mobi.pharmaapp).
 
 ## Contributors
 ### Coding
