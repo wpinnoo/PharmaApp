@@ -5,7 +5,7 @@ import json, urllib, libxml2, os, os.path, datetime, locale, re
 from datetime import datetime, timedelta
 
 SOURCE = 'http://admin.ringring.be/apb/public/duty_geo2.asp?lan=1&city=Gent&street_address=&zip_code=9000&T_dag=%02d&T_maand=%02d&T_jaar=%04d&T_hour=%04s&textv=1&printable=1'
-API_PATH = './'
+API_PATH = '~/app/website/'
 
 def download_pharms(day):
 	page = get_pharm_page(SOURCE, day)
