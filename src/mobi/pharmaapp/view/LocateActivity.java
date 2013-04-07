@@ -1,11 +1,14 @@
 package mobi.pharmaapp.view;
 
+import android.app.ActionBar;
+import android.app.ActionBar.OnNavigationListener;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.android.maps.GeoPoint;
@@ -18,6 +21,7 @@ import mobi.pharmaapp.models.DataModel;
 import mobi.pharmaapp.util.Pharmacy;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import mobi.pharmaapp.models.UserModel;
 import mobi.pharmaapp.util.LocalConstants;
@@ -37,10 +41,12 @@ public class LocateActivity extends MapActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nearby_layout);
-        DataModel.getInstance().setPharmacistsContainerIfNull(this);
+        DataModel.getInstance().setPharmacistsContainer(this);
+        DataModel.getInstance().setEmergencyPharmacistsContainer(this);
+        getActionBar().setDisplayShowTitleEnabled(false);
 
         previousLoc = LocalConstants.INITIAL_USER_LOCATION;
-        
+
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.getController().setZoom(14);
 
@@ -50,24 +56,57 @@ public class LocateActivity extends MapActivity {
         Drawable drawable = this.getResources().getDrawable(R.drawable.loc);
         final MapOverlayItem itemizedoverlay = new MapOverlayItem(drawable, this);
 
-        new LoadDataDialog(this) {
-            @Override
-            protected void onPostExecute(Integer result) {
-                this.dialog.dismiss();
-                if (result.intValue() == 1) {
-                    this.showErrorDialogAndExit();
-                } else {
-                    addOverlays(itemizedoverlay, mapOverlays);
-                }
-            }
-        }.execute();
-
         Toast.makeText(getApplicationContext(), getString(R.string.get_cur_loc), Toast.LENGTH_LONG).show();
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new MapLocationListener());
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.map_modes));
+
+        getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+
+        ActionBar.OnNavigationListener navigationListener = new OnNavigationListener() {
+            @Override
+            public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+                DataModel.getInstance().setMapMode(DataModel.MAP_MODE.values()[itemPosition]);
+                switch (DataModel.getInstance().getMapMode()) {
+                    case ALL:
+                        new LoadDataDialog(LocateActivity.this) {
+                            @Override
+                            protected void onPostExecute(Integer result) {
+                                this.dialog.dismiss();
+                                if (result.intValue() == 1) {
+                                    this.showErrorDialogAndExit();
+                                } else {
+                                    addOverlays(itemizedoverlay, mapOverlays);
+                                }
+                            }
+                        }.execute();
+                        break;
+                    case EMERGENCY_ONLY:
+                        new LoadEmergencyDataDialog(LocateActivity.this) {
+                            @Override
+                            protected void onPostExecute(Integer result) {
+                                this.dialog.dismiss();
+                                if (result.intValue() == 1) {
+                                    this.showErrorDialogAndExit();
+                                } else {
+                                    addOverlays(itemizedoverlay, mapOverlays);
+                                }
+                            }
+                        }.execute();
+                        break;
+                }
+                return false;
+            }
+        };
+        getActionBar().setListNavigationCallbacks(adapter, navigationListener);
     }
 
     private void addOverlays(MapOverlayItem itemizedoverlay, List<Overlay> mapOverlays) {
+        mapView.getOverlays().clear();
+        if(previousLocOverlay != null){
+            mapView.getOverlays().add(previousLocOverlay);
+        }
         Collection<Pharmacy> c = null;
         switch (DataModel.getInstance().getMapMode()) {
             case ALL:
@@ -77,7 +116,7 @@ public class LocateActivity extends MapActivity {
                 c = DataModel.getInstance().getEmergencyPharmacies(DataModel.LIST_TYPE.SORT_ON_DISTANCE);
                 break;
         }
-        if(c == null){
+        if (c == null) {
             return; // Should not happen
         }
         List<Pharmacy> l = new ArrayList<Pharmacy>();

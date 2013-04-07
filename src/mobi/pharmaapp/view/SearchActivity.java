@@ -36,7 +36,7 @@ public class SearchActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_layout);
-        DataModel.getInstance().setPharmacistsContainerIfNull(this);
+        DataModel.getInstance().setPharmacistsContainer(this);
         new LoadDataDialog(this) {
             @Override
             protected void onPostExecute(Integer result) {

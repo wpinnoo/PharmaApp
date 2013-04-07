@@ -29,7 +29,7 @@ public class EmergencyPharmacistsActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.emergency_layout);
-        DataModel.getInstance().setEmergencyPharmacistsContainerIfNull(this);
+        DataModel.getInstance().setEmergencyPharmacistsContainer(this);
         new LoadEmergencyDataDialog(this) {
             @Override
             protected void onPostExecute(Integer result) {
