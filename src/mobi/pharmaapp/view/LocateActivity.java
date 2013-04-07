@@ -100,6 +100,7 @@ public class LocateActivity extends MapActivity {
             }
         };
         getActionBar().setListNavigationCallbacks(adapter, navigationListener);
+        getActionBar().setSelectedNavigationItem(DataModel.getInstance().getMapMode().ordinal());
     }
 
     private void addOverlays(MapOverlayItem itemizedoverlay, List<Overlay> mapOverlays) {
