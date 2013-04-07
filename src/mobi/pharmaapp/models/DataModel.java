@@ -53,7 +53,7 @@ public class DataModel {
         this.lastUpdateEmergencyPharmacists = date;
     }
 
-    public void setPharmacistsContainerIfNull(Activity activity) {
+    public void setPharmacistsContainer(Activity activity) {
         if (pharmacistsContainer == null) {
             pharmacistsContainer = activity;
         }
@@ -63,7 +63,7 @@ public class DataModel {
         return pharmacistsContainer;
     }
 
-    public void setEmergencyPharmacistsContainerIfNull(Activity activity) {
+    public void setEmergencyPharmacistsContainer(Activity activity) {
         if (em_pharmacistsContainer == null) {
             em_pharmacistsContainer = activity;
         }

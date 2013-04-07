@@ -28,5 +28,9 @@
     <string name="about">Info</string>
     <string name="search_with_dots">Zoek...</string>
     <string name="show_on_map">Bekijk op kaart</string>
+    <string-array name="map_modes">
+        <item>Alle apothekers</item>
+        <item>Apothekers van wacht</item>
+    </string-array>
 
 </resources>

@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_layout);
-        DataModel.getInstance().setPharmacistsContainerIfNull(this);
+        DataModel.getInstance().setPharmacistsContainer(this);
 
         Button btn_search = (Button) findViewById(R.id.btn_search);
         Button btn_nearby = (Button) findViewById(R.id.btn_nearby);
