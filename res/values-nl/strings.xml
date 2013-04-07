@@ -27,5 +27,6 @@
     <string name="em_pharms">Van wacht</string>
     <string name="about">Info</string>
     <string name="search_with_dots">Zoek...</string>
+    <string name="show_on_map">Bekijk op kaart</string>
 
 </resources>

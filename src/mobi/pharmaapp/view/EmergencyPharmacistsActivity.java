@@ -1,6 +1,7 @@
 package mobi.pharmaapp.view;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -69,7 +70,7 @@ public class EmergencyPharmacistsActivity extends ListActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.refresh_menu, menu);
+        inflater.inflate(R.menu.em_menu, menu);
         return true;
     }
 
@@ -90,6 +91,10 @@ public class EmergencyPharmacistsActivity extends ListActivity {
                     }
                 }.execute();
                 return true;
+            case R.id.show_on_map:
+                DataModel.getInstance().setMapMode(DataModel.MAP_MODE.EMERGENCY_ONLY);
+                Intent i = new Intent(getApplicationContext(), LocateActivity.class);
+                startActivity(i);
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -2,6 +2,8 @@ package mobi.pharmaapp.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import mobi.pharmaapp.models.DataModel;
@@ -19,6 +21,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;
@@ -141,6 +145,7 @@ public class JSONEmergencyPharmacyScraper {
                 JSONObject obj = arr.getJSONObject(i);
                 String address = obj.getString("street") + " " + obj.getString("nr");
                 Pharmacy a = new Pharmacy((float) 0, (float) 0, obj.getString("name"), address, 0, "0", "0", Integer.parseInt(obj.getString("zip")), obj.getString("city"), obj.getString("tel"));
+                findCoordinates(a);
                 DataModel.getInstance().addEmergencyPharmacy(a);
             } catch (JSONException ex) {
                 Logger.getLogger(JSONPharmacyScraper.class.getName()).log(Level.SEVERE, null, ex);
@@ -149,5 +154,17 @@ public class JSONEmergencyPharmacyScraper {
             }
         }
         return 0;
+    }
+
+    private static void findCoordinates(Pharmacy a) {
+        try {
+            Geocoder geocoder = new Geocoder(DataModel.getInstance().getEmergencyPharmaciesContainer().getApplicationContext(), Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocationName(a.getAddress() + " " + a.getTown(), 1);
+            if (addresses.size() > 0) {
+                a.setLocation(new Location((float) addresses.get(0).getLatitude(),
+                        (float) addresses.get(0).getLongitude()));
+            }
+        } catch (IOException ex) {
+        }
     }
 }
