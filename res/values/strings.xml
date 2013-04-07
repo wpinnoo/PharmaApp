@@ -27,5 +27,5 @@
     <string name="em_pharms">Emergency</string>
     <string name="about">About</string>
     <string name="search_with_dots">Search...</string>
-
+    <string name="show_on_map">Show on map</string>
 </resources>

@@ -47,6 +47,10 @@ public class Pharmacy {
     public Location getLocation() {
         return loc;
     }
+    
+    public void setLocation(Location loc){
+        this.loc = loc;
+    }
 
     public String getName() {
         return name;

@@ -43,6 +43,7 @@ public class MainActivity extends Activity {
         btn_nearby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DataModel.getInstance().setMapMode(DataModel.MAP_MODE.ALL);
                 Intent i = new Intent(getApplicationContext(), LocateActivity.class);
                 startActivity(i);
             }

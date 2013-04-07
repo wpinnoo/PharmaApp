@@ -68,7 +68,18 @@ public class LocateActivity extends MapActivity {
     }
 
     private void addOverlays(MapOverlayItem itemizedoverlay, List<Overlay> mapOverlays) {
-        Collection<Pharmacy> c = DataModel.getInstance().getPharmacies().values();
+        Collection<Pharmacy> c = null;
+        switch (DataModel.getInstance().getMapMode()) {
+            case ALL:
+                c = DataModel.getInstance().getPharmacies().values();
+                break;
+            case EMERGENCY_ONLY:
+                c = DataModel.getInstance().getEmergencyPharmacies(DataModel.LIST_TYPE.SORT_ON_DISTANCE);
+                break;
+        }
+        if(c == null){
+            return; // Should not happen
+        }
         List<Pharmacy> l = new ArrayList<Pharmacy>();
         l.addAll(c);
         for (int i = 0; i < l.size(); i++) {

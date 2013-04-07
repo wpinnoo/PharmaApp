@@ -19,16 +19,30 @@ public class DataModel {
         NORMAL, SORT_ON_DISTANCE, SORT_ALPH;
     }
     
+    public enum MAP_MODE {
+        ALL, EMERGENCY_ONLY;
+    }
+    
     private HashMap<String, Pharmacy> pharmacies;
     private ArrayList<Pharmacy> em_pharmacies;
     private static final DataModel model = new DataModel();
     private Activity pharmacistsContainer;
     private Activity em_pharmacistsContainer;
     private Date lastUpdateEmergencyPharmacists;
+    private MAP_MODE mapMode;
 
     private DataModel() {
         pharmacies = new HashMap<String, Pharmacy>();
         em_pharmacies = new ArrayList<Pharmacy>();
+        mapMode = MAP_MODE.ALL;
+    }
+    
+    public MAP_MODE getMapMode(){
+        return mapMode;
+    }
+    
+    public void setMapMode(MAP_MODE newMode){
+        this.mapMode = newMode;
     }
 
     public Date getLastEmPharmsUpdate() {
