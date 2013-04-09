@@ -5,7 +5,7 @@ import json, urllib, libxml2, os, os.path, datetime, locale, re
 from datetime import datetime, timedelta
 
 SOURCE = 'http://admin.ringring.be/apb/public/duty_geo2.asp?lan=1&city=Gent&street_address=&zip_code=9000&T_dag=%02d&T_maand=%02d&T_jaar=%04d&T_hour=%04s&textv=1&printable=1'
-API_PATH = '../website/'
+API_PATH = 'test'
 
 def download_pharms(day):
 	page = get_pharm_page(SOURCE, day)
@@ -53,7 +53,7 @@ def dump_pharms_to_file(path, pharms):
 	if not os.path.isdir(path):
 		os.makedirs(path)
 	with open('%s/em_pharms.json' % (path), 'w') as f:
-		json.dump(pharms, f, sort_keys=True)
+		json.dump(pharms, f, sort_keys=True, encoding="ISO-8859-1")
 
 if __name__ == "__main__":
 	days = [datetime.today() + timedelta(days = n) for n in range(1)]
