@@ -16,7 +16,7 @@ This app is available on the [Google Play Store](https://play.google.com/store/a
 * Maxime Fernández Alonso
  
 ### Special Thanks
-* [DataTank Stad Gent](http://data.ugent.be) for the open data
+* [DataTank Stad Gent](http://data.gent.be) for the open data
 * [@ZeusWPI](https://github.com/ZeusWPI) for the server
 
 ## Screenshots
