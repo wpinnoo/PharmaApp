@@ -1,7 +1,8 @@
 PharmaApp
 =========
 A simple application to find the nearest pharmacy from your current location (only in Ghent). 
-This app was made for the AppsForGhent 2013 competition, we won for the European jury.   
+
+This app was made for the AppsForGhent 2013 competition, and chosen by the European jury.   
 
 ## PlayStore
 This app is available on the [Google Play Store](https://play.google.com/store/apps/details?id=mobi.pharmaapp).
@@ -16,7 +17,7 @@ This app is available on the [Google Play Store](https://play.google.com/store/a
 * Maxime Fernández Alonso
  
 ### Special Thanks
-* [DataTank Stad Gent](http://data.ugent.be) for the open data
+* [DataTank Stad Gent](http://data.gent.be) for the open data
 * [@ZeusWPI](https://github.com/ZeusWPI) for the server
 
 ## Screenshots
