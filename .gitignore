@@ -65,3 +65,4 @@ layout.graffle
 /nbandroid/
 
 *.json
+scrapers/pharm.py
