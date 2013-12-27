@@ -66,3 +66,4 @@ layout.graffle
 
 *.json
 scrapers/pharm.py
+keystore/
