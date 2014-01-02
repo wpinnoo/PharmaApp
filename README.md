@@ -1,4 +1,4 @@
-PharmaApp
+PharmaApp [![Analytics](https://ga-beacon.appspot.com/UA-46815416-2/PharmaApp/README.md)](https://github.com/igrigorik/ga-beacon)
 =========
 A simple application to find the nearest pharmacy from your current location (only in Ghent). 
 
